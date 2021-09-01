@@ -8,9 +8,9 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Mike Dalessio"]
   spec.email         = ["mike.dalessio@gmail.com"]
 
-  spec.summary       = "Write a short summary, because RubyGems requires one."
-  spec.description   = "Write a longer description or delete this line."
-  spec.homepage      = "https://example.com"
+  spec.summary       = "Example gem demonstrating a basic C extension."
+  spec.description   = "Part of a project to explain how Ruby C extensions work."
+  spec.homepage      = "https://github.com/flavorjones/ruby-c-extensions-explained"
   spec.required_ruby_version = ">= 2.4.0"
 
   # Specify which files should be added to the gem when it is released.
