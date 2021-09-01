@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-require_relative "lib/packaged_tarball/version"
+require_relative "lib/rcee/packaged_source/version"
 
 Gem::Specification.new do |spec|
-  spec.name          = "packaged_tarball"
-  spec.version       = PackagedTarball::VERSION
+  spec.name          = "rcee_packaged_source"
+  spec.version       = RCEE::PackagedSource::VERSION
   spec.authors       = ["Mike Dalessio"]
   spec.email         = ["mike.dalessio@gmail.com"]
 
@@ -21,7 +21,7 @@ Gem::Specification.new do |spec|
   spec.bindir        = "exe"
   spec.executables   = spec.files.grep(%r{\Aexe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
-  spec.extensions    = ["ext/packaged_tarball/extconf.rb"]
+  spec.extensions    = ["ext/packaged_source/extconf.rb"]
 
   spec.add_dependency "mini_portile2"
 

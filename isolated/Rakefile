@@ -14,7 +14,7 @@ require "rake/extensiontask"
 task build: :compile
 
 Rake::ExtensionTask.new("isolated") do |ext|
-  ext.lib_dir = "lib/isolated"
+  ext.lib_dir = "lib/rcee/isolated"
 end
 
 task default: %i[clobber compile test]

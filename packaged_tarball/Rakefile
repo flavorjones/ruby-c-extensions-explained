@@ -14,7 +14,7 @@ require "rake/extensiontask"
 task build: :compile
 
 Rake::ExtensionTask.new("packaged_tarball") do |ext|
-  ext.lib_dir = "lib/packaged_tarball"
+  ext.lib_dir = "lib/rcee/packaged_tarball"
 end
 
 task default: %i[clobber compile test]

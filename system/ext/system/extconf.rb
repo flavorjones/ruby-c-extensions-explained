@@ -7,4 +7,4 @@ unless find_header('yaml.h') && find_library('yaml', 'yaml_get_version')
   abort("could not find libyaml development environment")
 end
 
-create_makefile("system/system")
+create_makefile("rcee/system/system")

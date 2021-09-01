@@ -3,7 +3,9 @@
 require_relative "packaged_source/version"
 require_relative "packaged_source/packaged_source"
 
-module PackagedSource
-  class Error < StandardError; end
-  # Your code goes here...
+module RCEE
+  module PackagedSource
+    class Error < StandardError; end
+    # Your code goes here...
+  end
 end

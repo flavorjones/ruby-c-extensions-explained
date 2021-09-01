@@ -2,4 +2,4 @@
 
 require "mkmf"
 
-create_makefile("isolated/isolated")
+create_makefile("rcee/isolated/isolated")

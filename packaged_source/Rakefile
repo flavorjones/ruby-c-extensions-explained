@@ -14,7 +14,7 @@ require "rake/extensiontask"
 task build: :compile
 
 Rake::ExtensionTask.new("packaged_source") do |ext|
-  ext.lib_dir = "lib/packaged_source"
+  ext.lib_dir = "lib/rcee/packaged_source"
 end
 
 task default: %i[clobber compile test]

@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-require_relative "lib/system/version"
+require_relative "lib/rcee/system/version"
 
 Gem::Specification.new do |spec|
-  spec.name          = "system"
-  spec.version       = System::VERSION
+  spec.name          = "rcee_system"
+  spec.version       = RCEE::System::VERSION
   spec.authors       = ["Mike Dalessio"]
   spec.email         = ["mike.dalessio@gmail.com"]
 

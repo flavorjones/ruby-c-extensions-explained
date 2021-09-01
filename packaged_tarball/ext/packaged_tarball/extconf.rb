@@ -18,4 +18,4 @@ unless have_library("yaml", "yaml_get_version", "yaml.h")
   abort("could not find yaml development environment")
 end
 
-create_makefile("packaged_tarball/packaged_tarball")
+create_makefile("rcee/packaged_tarball/packaged_tarball")

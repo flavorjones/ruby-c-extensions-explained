@@ -1,5 +1,6 @@
 #include "isolated.h"
 
+VALUE rb_mRCEE;
 VALUE rb_mIsolated;
 VALUE rb_cIsolatedExtension;
 
@@ -13,7 +14,8 @@ rb_isolated_extension_class_do_something(VALUE self)
 void
 Init_isolated(void)
 {
-  rb_mIsolated = rb_define_module("Isolated");
+  rb_mRCEE = rb_define_module("RCEE");
+  rb_mIsolated = rb_define_module_under(rb_mRCEE, "Isolated");
   rb_cIsolatedExtension = rb_define_class_under(rb_mIsolated, "Extension", rb_cObject);
   rb_define_singleton_method(rb_cIsolatedExtension, "do_something",
                              rb_isolated_extension_class_do_something, 0);

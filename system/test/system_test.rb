@@ -5,11 +5,11 @@ require "test_helper"
 class SystemTest < Minitest::Spec
   describe "System" do
     it "defines a class" do
-      assert(defined?(::System::Extension))
+      assert(defined?(::RCEE::System::Extension))
     end
 
     it "defines a method" do
-      result = ::System::Extension.do_something
+      result = ::RCEE::System::Extension.do_something
       puts "\ndo_something returned #{result.inspect}"
       assert(result)
     end
