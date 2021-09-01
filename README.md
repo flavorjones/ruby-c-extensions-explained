@@ -11,7 +11,9 @@ strategies are:
 
 A self-contained C extension (no external libraries).
 
-Examples:
+See subdirectory [/isolated](./isolated).
+
+Real-world examples:
 
 - https://github.com/bcrypt-ruby/bcrypt-ruby
 
@@ -20,27 +22,32 @@ Examples:
 
 Find and use an external library already installed on the target system
 
-Examples:
+See subdirectory [/system](./system).
+
+Real-world examples:
 
 - https://github.com/rmagick/rmagick
 - https://github.com/sparklemotion/sqlite3-ruby
 
 
-## Strategy 2, "package"
+## Strategy 2, "packaged"
 
 Package your own source code for the external library, and compile during installation
 
-Examples:
+See subdirectories [/packaged_source](./packaged_source) and [/packaged_tarball](./packaged_tarball).
+
+
+Real-world examples:
 
 - https://github.com/rubys/nokogumbo
 - https://github.com/sass/sassc-ruby
 
 
-## Strategy 3, "precompile"
+## Strategy 3, "precompiled"
 
 Precompile the library ahead-of-time and package the shared libraries
 
-Examples:
+Real-world examples:
 
 - https://github.com/grpc/grpc/tree/master/src/ruby
 
@@ -51,23 +58,12 @@ These strategies can also be combined, which this repository also demonstrates.
 
 ### "system", fallback to "packaged"
 
-Examples:
+Real-world examples:
 
 - https://github.com/ruby/psych
 
 ### "precompiled", fall back to "packaged, leave option for "system"
 
-Examples:
+Real-world examples:
 
 https://github.com/sparklemotion/nokogiri
-
-
-# Contributing
-
-Create a new variation with:
-
-``` sh
-bundle gem gemname --no-exe --no-coc --ext --no-mit --test=minitest
-rm -rf gemname/.git gemname/bin
-# edit the gemspec
-```
