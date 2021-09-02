@@ -12,6 +12,7 @@ Gem::Specification.new do |spec|
   spec.description   = "Part of a project to explain how Ruby C extensions work."
   spec.homepage      = "https://github.com/flavorjones/ruby-c-extensions-explained"
   spec.required_ruby_version = ">= 2.4.0"
+  spec.license = "MIT"
 
   # Specify which files should be added to the gem when it is released.
   # The `git ls-files -z` loads the files in the RubyGem that have been added into git.
