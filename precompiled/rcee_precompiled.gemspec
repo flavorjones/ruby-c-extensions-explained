@@ -11,15 +11,24 @@ Gem::Specification.new do |spec|
   spec.summary       = "Example gem demonstrating a basic C extension."
   spec.description   = "Part of a project to explain how Ruby C extensions work."
   spec.homepage      = "https://github.com/flavorjones/ruby-c-extensions-explained"
-  spec.required_ruby_version = ">= 2.4.0"
+  spec.required_ruby_version = ">= 2.5.0"
   spec.license = "MIT"
 
   # Specify which files should be added to the gem when it is released.
   # The `git ls-files -z` loads the files in the RubyGem that have been added into git.
-  spec.files = Dir.chdir(File.expand_path(__dir__)) do
-    `git ls-files -z`.split("\x0").reject { |f| f.match(%r{\A(?:test|spec|features)/}) }
-  end
-  spec.files         << "ports/archives/yaml-0.2.5.tar.gz"
+  spec.files = [
+    ".gitignore",
+    "Gemfile",
+    "README.md",
+    "Rakefile",
+    "ext/precompiled/extconf.rb",
+    "ext/precompiled/precompiled.c",
+    "ext/precompiled/precompiled.h",
+    "lib/rcee/precompiled.rb",
+    "lib/rcee/precompiled/version.rb",
+    "ports/archives/yaml-0.2.5.tar.gz",
+    "rcee_precompiled.gemspec",
+  ]
 
   spec.bindir        = "exe"
   spec.executables   = spec.files.grep(%r{\Aexe/}) { |f| File.basename(f) }
