@@ -18,7 +18,7 @@ MiniPortile.new("yaml", "0.2.5").tap do |recipe|
 end
 
 unless have_library("yaml", "yaml_get_version", "yaml.h")
-  abort("could not find yaml development environment")
+  abort("\nERROR: *** could not find libyaml development environment ***\n\n")
 end
 
 create_makefile("rcee/packaged_tarball/packaged_tarball")
