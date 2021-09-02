@@ -18,3 +18,5 @@ Rake::ExtensionTask.new("packaged_tarball") do |ext|
 end
 
 task default: %i[clobber compile test]
+
+CLOBBER.add("ports")
