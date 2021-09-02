@@ -24,6 +24,7 @@ cross_platforms = ["x64-mingw32", "x86_64-linux", "x86_64-darwin", "arm64-darwin
 
 ENV["RUBY_CC_VERSION"] = cross_rubies.join(":")
 
+
 Rake::ExtensionTask.new("precompiled", rcee_precompiled_spec) do |ext|
   ext.lib_dir = "lib/rcee/precompiled"
   ext.cross_compile = true

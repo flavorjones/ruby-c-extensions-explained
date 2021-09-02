@@ -2,6 +2,10 @@
 
 require "bundler/gem_tasks"
 require "rake/testtask"
+require "rubygems/package_task"
+
+rcee_system_spec = Bundler.load_gemspec("rcee_system.gemspec")
+Gem::PackageTask.new(rcee_system_spec).define
 
 Rake::TestTask.new(:test) do |t|
   t.libs << "test"
