@@ -1,0 +1,18 @@
+#! /usr/bin/env bash
+# a utility script to run the same command in each gem subdirectory
+
+command=$*
+if [[ $command == "" ]] ; then
+  echo "USAGE: in-each-gem <command to run in each directory>"
+  exit 1
+fi
+
+gem_subdirs=$(dirname */*.gemspec)
+
+for d in $gem_subdirs ; do
+  echo -e "\033[1;3m(in subdir $d)\033[0m"
+  cd $d
+  $*
+  cd ..
+  echo
+done
