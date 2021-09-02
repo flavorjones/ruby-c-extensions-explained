@@ -24,8 +24,6 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
   spec.extensions    = ["ext/packaged_source/extconf.rb"]
 
-  spec.add_dependency "mini_portile2"
-
   # For more information and examples about making a new gem, checkout our
   # guide at: https://bundler.io/guides/creating_gem.html
 end

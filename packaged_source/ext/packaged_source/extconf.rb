@@ -1,5 +1,4 @@
 require "mkmf"
-require "mini_portile2"
 
 $VPATH << "$(srcdir)/yaml"
 $srcs = Dir.glob("#{$srcdir}/{,yaml/}*.c").map { |n| File.basename(n) }.sort
