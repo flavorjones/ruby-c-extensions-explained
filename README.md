@@ -47,6 +47,8 @@ Real-world examples:
 
 Precompile the library ahead-of-time and package the shared libraries
 
+See subdirectory [/precompiled](./precompiled)
+
 Real-world examples:
 
 - https://github.com/grpc/grpc/tree/master/src/ruby
