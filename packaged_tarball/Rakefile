@@ -20,3 +20,4 @@ end
 task default: %i[clobber compile test]
 
 CLOBBER.add("ports")
+CLEAN.add("{ext,lib}/**/*.{o,so}")

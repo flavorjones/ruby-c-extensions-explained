@@ -18,3 +18,5 @@ Rake::ExtensionTask.new("system") do |ext|
 end
 
 task default: %i[clobber compile test]
+
+CLEAN.add("{ext,lib}/**/*.{o,so}")

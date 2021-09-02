@@ -18,3 +18,5 @@ Rake::ExtensionTask.new("packaged_source") do |ext|
 end
 
 task default: %i[clobber compile test]
+
+CLEAN.add("{ext,lib}/**/*.{o,so}")

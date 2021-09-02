@@ -62,8 +62,8 @@ namespace "gem" do
 end
 
 
-CLEAN.add(FileList.new("lib/**/*.so"))
 CLOBBER.add("ports")
+CLEAN.add("{ext,lib}/**/*.{o,so}")
 
 task build: :compile
 task default: %i[clobber compile test]
