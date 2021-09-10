@@ -61,3 +61,9 @@ task default: [:clobber, :compile, :test]
 
 CLEAN.add("{ext,lib}/**/*.{o,so}", "pkg")
 CLOBBER.add("ports")
+
+# when packaging the gem, if the tarball isn't cached, we need to fetch it. the easiest thing to do
+# is to run the compile phase to invoke the extconf and have mini_portile download the file for us.
+# this is wasteful and in the future I would prefer to separate mini_portile from the extconf to
+# allow us to download without compiling.
+Rake::Task["package"].prerequisites.prepend("compile")
