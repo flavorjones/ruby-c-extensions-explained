@@ -11,6 +11,16 @@ Many third-party libraries have their own build process based on tools like "aut
 
 An important tool that we rely on for building third-party libraries is [`flavorjones/mini_portile`](https://github.com/flavorjones/mini_portile). It is able to configure a tarball distribution that relies on "autoconf" or "cmake" and compile it into a library that we can link against.
 
+We add the tarball to the gemspec so that it's packaged with the rest of the gem:
+
+``` ruby
+Gem::Specification.new do |spec|
+  # ...
+  spec.files         << "ports/archives/yaml-0.2.5.tar.gz"
+  # ...
+end
+```
+
 The `extconf.rb` contains a new block:
 
 ``` ruby
@@ -32,7 +42,7 @@ end
 
 This block:
 
-- downloads and caches the libyaml tarball
+- downloads the libyaml tarball if necessary (note that the packaged gem includes the tarball and so this is skipped by end users during `gem install`)
 - verifies the checksum of the tarball
 - extracts the tarball
 - configures the build system (for libyaml, this is "autoconf")

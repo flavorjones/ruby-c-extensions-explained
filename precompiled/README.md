@@ -117,6 +117,7 @@ The "SUBDIRS" environment variable is something that's very specific to libyaml,
 We have one more small change we'll need to make to how the extension is required. Let's take a look at the directory structure in the packaged gem:
 
 ``` text
+lib
 └── rcee
     ├── precompiled
     │   ├── 2.5

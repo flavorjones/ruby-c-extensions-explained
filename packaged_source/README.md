@@ -34,17 +34,18 @@ ext/
         └── yaml_private.h
 ```
 
-The `extconf.rb` contains some new code to configure compiling and linking.
+The `extconf.rb` contains some new code:
 
 ``` ruby
 $VPATH << "$(srcdir)/yaml"
 $srcs = Dir.glob("#{$srcdir}/{,yaml/}*.c").map { |n| File.basename(n) }.sort
 append_cppflags("-I$(srcdir)/yaml")
+
+find_header("yaml.h")
+have_header("config.h")
 ```
 
-and then verifies that `yaml.h` can be found (we could skip this since we're packing it and setting the include path manually).
-
-Finally, a libyaml-specific action is taken which is to make sure `config.h` can be found and that the `HAVE_CONFIG_H` macro is set so that `yaml.h` is compiled properly.
+It first configures `MakeMakefile` to pay attention to the `./yaml` directory as well as the C and header files. It then verifies that `yaml.h` can be found (we could skip this since we're packing it and setting the include path manually). Finally, a libyaml-specific action is taken which is to make sure `config.h` can be found and that the `HAVE_CONFIG_H` macro is set so that `yaml.h` is compiled properly.
 
 The `Makefile` recipe looks something like:
 
