@@ -48,4 +48,11 @@ task "package" do
   cp(Dir.glob("pkg/*.gem"), "gems")
 end
 
+desc "test all the gems"
+task "test" do
+  in_each_gemdir do
+    sh("bundle") and sh("bundle exec rake compile test")
+  end
+end
+
 CLEAN.add("pkg")
