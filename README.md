@@ -151,16 +151,15 @@ I'll try to answer questions asked during conference Q&A here.
 
 ### What's the significance of the flowers you're using as a background image for your RubyKaigi slides?
 
-I've explained the flowers here:
+I tweeted a brief teaser video in which I explained the joke!
 
 <blockquote class="twitter-tweet">
-  <p lang="en" dir="ltr">When I edited my RubyKaigi talk about C extensions, some bits had to be cut for time. Here&#39;s a fun teaser that I put together from some of those bits.
+  <p lang="en" dir="ltr">When I edited my RubyKaigi talk about C extensions, some bits had to be cut for time. Here&#39;s a fun teaser that I put together from some of those bits. [video link]
     <a href="https://t.co/wZjSepHNpq">pic.twitter.com/wZjSepHNpq</a>
   </p>
   &mdash; mike dalessio (@flavorjones)
   <a href="https://twitter.com/flavorjones/status/1435979823688691723?ref_src=twsrc%5Etfw">September 9, 2021</a>
 </blockquote>
-<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 In short, my friend Mark once sent me flowers for my birthday along with a card that read:
 
