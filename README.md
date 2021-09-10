@@ -1,20 +1,41 @@
 # Ruby C Extensions, Explained
 
+<!-- use "markdown-toc -i README>md" to regenerate the table of contents -->
+
+<!-- toc -->
+
+- [Background](#background)
+- [How To Use This Repository](#how-to-use-this-repository)
+- [Strategies](#strategies)
+  * [Strategy 0, "isolated"](#strategy-0-isolated)
+  * [Strategy 1, "system"](#strategy-1-system)
+  * [Strategy 2a, "packaged_source"](#strategy-2a-packaged_source)
+  * [Strategy 2b, "packaged_tarball"](#strategy-2b-packaged_tarball)
+  * [Strategy 3, "precompiled"](#strategy-3-precompiled)
+- [Strategy Combinations](#strategy-combinations)
+  * ["system", fallback to "packaged"](#system-fallback-to-packaged)
+  * ["precompiled", fall back to "packaged", leave option for "system"](#precompiled-fall-back-to-packaged-leave-option-for-system)
+- [FAQ](#faq)
+  * [What's the significance of the flowers you're using as a background image for your RubyKaigi slides?](#whats-the-significance-of-the-flowers-youre-using-as-a-background-image-for-your-rubykaigi-slides)
+
+<!-- tocstop -->
+
 ## Background
 
 Hello there! Welcome to Ruby C Extensions, Explained.
 
 This repository, and the example ruby gems in it, were originally written as companion materials for some conference talks being given in 2021 by Mike Dalessio (@flavorjones).
 
-- [RubyKaigi 2021 talk](https://rubykaigi.org/2021-takeout/presentations/flavorjones.html)
-- [RubyConf 2021 talk](https://rubyconf.org/program/sessions#session-1214)
+- [RubyKaigi 2021 talk](https://rubykaigi.org/2021-takeout/presentations/flavorjones.html) 2021-09-11
+  - This talk focuses mostly on the mechanics of the gems in this repository.
+  - [slides](https://docs.google.com/presentation/d/1litUWFDOfIiMRiM39B-eSG5IcJPUG5aKYAAOZ8rWLT0/)
+  - video (not publicly available yet)
+- [RubyConf 2021 talk](https://rubyconf.org/program/sessions#session-1214) 2021-11-08
+  - This talk may cover slightly different material, including an approach to rigorous testing, how to think about Trust in the context of precompilation, and what industrializing precompilation might look like.
 
+## How To Use This Repository
 
-## Usage
-
-Each of the gems in this repository demonstrate a different strategy for integrating with (or packaging up) third-party libraries. A brief explanation of each strategy is later in this document, and each gem is in a distinct subdirectory.
-
-I'm planning to expand the reading materials to include everything from the talks; until then, I appreciate your patience with my sparse descriptions.
+Each of the gems in this repository demonstrate a different strategy for integrating with (or packaging) third-party libraries. A brief explanation of the strategies is below, and the code for each gem is in a distinct subdirectory, along with a README that contains a more complete explanation.
 
 Each gem builds on the previous one if you tackle them in this order:
 
@@ -24,8 +45,6 @@ Each gem builds on the previous one if you tackle them in this order:
 - [/packaged_tarball](./packaged_tarball)
 - [/precompiled](./precompiled)
 
-
-## Installation
 
 These are actual, working gems! And they've all been pushed to rubygems.org:
 
@@ -124,3 +143,30 @@ Real-world examples:
 
 - https://github.com/sparklemotion/nokogiri
 - https://github.com/kwilczynski/ruby-magic
+
+
+## FAQ
+
+I'll try to answer questions asked during conference Q&A here.
+
+### What's the significance of the flowers you're using as a background image for your RubyKaigi slides?
+
+I've explained the flowers here:
+
+<blockquote class="twitter-tweet">
+  <p lang="en" dir="ltr">When I edited my RubyKaigi talk about C extensions, some bits had to be cut for time. Here&#39;s a fun teaser that I put together from some of those bits.
+    <a href="https://t.co/wZjSepHNpq">pic.twitter.com/wZjSepHNpq</a>
+  </p>
+  &mdash; mike dalessio (@flavorjones)
+  <a href="https://twitter.com/flavorjones/status/1435979823688691723?ref_src=twsrc%5Etfw">September 9, 2021</a>
+</blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+In short, my friend Mark once sent me flowers for my birthday along with a card that read:
+
+``` text
+Fetching nokogiri-1.8.0.gem (100%)
+Building native extensions. This could take a while...
+```
+
+Mark is funny. This was the inspiration for the talk's title.
