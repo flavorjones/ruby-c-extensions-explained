@@ -55,4 +55,16 @@ task "test" do
   end
 end
 
+task "clean" do
+  in_each_gemdir do
+    sh("bundle") and sh("bundle exec rake clean")
+  end
+end
+
+task "clobber" do
+  in_each_gemdir do
+    sh("bundle") and sh("bundle exec rake clean clobber")
+  end
+end
+
 CLEAN.add("pkg")
