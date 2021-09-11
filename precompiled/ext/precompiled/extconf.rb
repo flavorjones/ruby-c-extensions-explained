@@ -17,7 +17,7 @@ MiniPortile.new("yaml", "0.2.5").tap do |recipe|
   recipe.target = File.join(package_root_dir, "ports")
 
   # configure the environment that MiniPortile will use for subshells
-  ENV.to_h.dup.tap do |env|
+  ENV.to_h.tap do |env|
     # -fPIC is necessary for linking into a shared library
     env["CFLAGS"] = [env["CFLAGS"], "-fPIC"].join(" ")
     env["SUBDIRS"] = "include src" # libyaml: skip tests
