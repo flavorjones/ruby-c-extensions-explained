@@ -149,6 +149,13 @@ Real-world examples:
 
 I'll try to answer questions asked during conference Q&A here.
 
+### How do you test cross-compiling gems on Github Actions?
+
+Nokogiri uses the `rake-compiler-dock` OCI images directly to build the gem; and then uses the upload-artifact/download-artifact actions to install that gem on the target system.
+
+See https://github.com/sparklemotion/nokogiri/blob/main/.github/workflows/gem-install.yml for the concrete implementation!
+
+
 ### What's the significance of the flowers you're using as a background image for your RubyKaigi slides?
 
 I tweeted a brief teaser video in which I explained the joke!
