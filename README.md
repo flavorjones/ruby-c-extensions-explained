@@ -27,11 +27,15 @@ Hello there! Welcome to Ruby C Extensions, Explained.
 
 This repository, and the example ruby gems in it, were originally written as companion materials for some conference talks being given in 2021 by Mike Dalessio (@flavorjones).
 
-- [RubyKaigi 2021 talk](https://rubykaigi.org/2021-takeout/presentations/flavorjones.html) 2021-09-11
-  - This talk focuses mostly on the mechanics of the gems in this repository.
-  - [slides](https://docs.google.com/presentation/d/1litUWFDOfIiMRiM39B-eSG5IcJPUG5aKYAAOZ8rWLT0/) and [video](https://rubykaigi.org/2021-takeout/presentations/flavorjones.html)
-- [RubyConf 2021 talk](https://rubyconf.org/program/sessions#session-1214) 2021-11-08
-  - This talk may cover slightly different material, including an approach to rigorous testing, how to think about Trust in the context of precompilation, and what industrializing precompilation might look like.
+### [RubyKaigi 2021 talk](https://rubykaigi.org/2021-takeout/presentations/flavorjones.html) 2021-09-11
+
+This talk focuses mostly on the mechanics of the gems in this repository. ([Slides](https://docs.google.com/presentation/d/1litUWFDOfIiMRiM39B-eSG5IcJPUG5aKYAAOZ8rWLT0/))
+
+<iframe width="525" height="300" src="https://www.youtube.com/embed/oktN_CbOJKc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+### [RubyConf 2021 talk](https://rubyconf.org/program/sessions#session-1214) 2021-11-08
+
+This talk may cover slightly different material, including an approach to rigorous testing, how to think about Trust in the context of precompilation, and what industrializing precompilation might look like.
 
 ## How To Use This Repository
 
