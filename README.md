@@ -25,13 +25,11 @@
 
 Hello there! Welcome to Ruby C Extensions, Explained.
 
-This repository, and the example ruby gems in it, were originally written as companion materials for some conference talks being given in 2021 by Mike Dalessio (@flavorjones).
+This repository, and the example ruby gems in it, were originally written as companion materials for some conference talks being given in 2021 by Mike Dalessio ([@flavorjones](https://twitter.com/flavorjones)).
 
 ### [RubyKaigi 2021 talk](https://rubykaigi.org/2021-takeout/presentations/flavorjones.html) 2021-09-11
 
 This talk focuses mostly on the mechanics of the gems in this repository. 
-([Video](https://www.youtube.com/watch?v=oktN_CbOJKc)) 
-([Slides](https://docs.google.com/presentation/d/1litUWFDOfIiMRiM39B-eSG5IcJPUG5aKYAAOZ8rWLT0/))
 
 ### [RubyConf 2021 talk](https://rubyconf.org/program/sessions#session-1214) 2021-11-08
 
@@ -101,7 +99,7 @@ Real-world examples:
 
 - https://github.com/ruby/psych
 - https://github.com/rubys/nokogumbo
-- https://github.com/rubys/sassc-ruby
+- https://github.com/sass/sassc-ruby
 
 
 ### Strategy 2b, "packaged_tarball"
