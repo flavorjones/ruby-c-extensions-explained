@@ -35,6 +35,6 @@ jobs:
       - uses: actions/cache@v2
         with:
           path: packaged_tarball/ports
-          key: ports-${{matrix.runs-on}}-${{hashFiles('packaged_tarball/ext/packaged_tarball/extconf.rb')}}
+          key: packaged_tarball-ports-${{matrix.runs-on}}-${{hashFiles('packaged_tarball/ext/packaged_tarball/extconf.rb')}}
       - run: bundle exec rake compile test
         working-directory: packaged_tarball

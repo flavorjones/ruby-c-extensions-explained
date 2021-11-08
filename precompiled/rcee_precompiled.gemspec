@@ -1,10 +1,14 @@
 # frozen_string_literal: true
 
-require_relative "lib/rcee/precompiled/version"
+begin
+  require_relative "lib/rcee/precompiled/version"
+rescue LoadError
+  puts "WARNING: Could not load RCEE::Precompiled::VERSION"
+end
 
 Gem::Specification.new do |spec|
   spec.name          = "rcee_precompiled"
-  spec.version       = RCEE::Precompiled::VERSION
+  spec.version       = defined?(RCEE::Precompiled::VERSION) ? RCEE::Precompiled::VERSION : "0.0.0"
   spec.authors       = ["Mike Dalessio"]
   spec.email         = ["mike.dalessio@gmail.com"]
 

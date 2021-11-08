@@ -93,7 +93,7 @@ This makes sure that the cross-compiler is the compiler used within the guest co
 cross_build_p = enable_config("cross-build")
 ```
 
-We don't need this for `libyaml`, but the technique is useful: the cross-compile rake task signals to `extconf.rb` that it's cross-compiling by using a commandline flag that we can inspect. As an example, `extconf.rb` may need to set specific configuration options on the third-party library when cross-compiling.
+The cross-compile rake task signals to `extconf.rb` that it's cross-compiling by using a commandline flag that we can inspect. We'll need this for `libyaml` to make sure that set the appropriate flags during precompilation (flags which shouldn't be set when compiling natively).
 
 ``` ruby
 MiniPortile.new("yaml", "0.2.5").tap do |recipe|
@@ -148,6 +148,24 @@ end
 ```
 
 Go ahead and try it! `gem install rcee_precompiled`. If you're on windows, linux, or macos you should get a precompiled version that installs in under a second. Everyone else (hello FreeBSD people!) it'll take a few more seconds to build the vanilla gem's packaged tarball.
+
+
+## Testing
+
+See [.github/workflows/precompiled.yml](../.github/workflows/precompiled.yml)
+
+Key things to note:
+
+- matrix across all supported Rubies and platforms (for compile-from-source installation testing)
+- test native gems for a variety of platforms
+  - use rake-compiler-dock images to build the gems
+  - then install on native platforms and verify that it passes tests
+
+Note that there's additional complexity because of how we test:
+
+- see new script bin/test-gem-build which artificially bumps the VERSION string to double-check we're testing the packaged version of the gem (which the tests output)
+- see new script bin/test-gem-install which installs the gem, deletes the local source code, and runs the tests against the installed gem
+- the gemspec handles a missing version file (because we delete the local source code during testing)
 
 
 ## What Can Go Wrong
