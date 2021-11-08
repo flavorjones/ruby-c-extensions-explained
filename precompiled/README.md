@@ -176,8 +176,8 @@ This strategy isn't perfect. Remember what I said earlier, that a compiled C ext
 - the machine architecture (e.g., x86_64)
 - the system libraries
 
-The precompiled strategy mostly takes care of the first two, but there are still edge cases for system libraries. The big gotcha is that linux libc is not the same as linux musl, and we've had to work around this a few times in Nokogiri.
+The precompiled strategy mostly takes care of the first two, but there are still edge cases for system libraries. The big gotcha is that linux libc is not the same as linux musl, and we've had to work around this a few times in Nokogiri. Note also that we're unable to easily test `musl` systems on Github Actions because of limitations in the `download-artifact` action.
 
-I'm positive that there are more edge cases that will be found as users add more platforms and as more gems start precompiling. I'm willing to bet money that you can break this by setting some Ruby compile-time flags on your system. I'm honestly surprised it works as well as it has.
+I'm positive that there are more edge cases that will be found as users add more platforms and as more gems start precompiling. I'm willing to bet money that you can break this by setting some Ruby compile-time flags on your system. I'm honestly surprised it works as well as it has. (Worth noting: the `sassc` gem stopped shipping native gems for linux because of the musl incompatibilities.)
 
 So the lesson here is: make sure you have an automated test pipeline that will build a gem and test it on the target platform! This takes time to set up, but it will save you time and effort in the long run.

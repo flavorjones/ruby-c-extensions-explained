@@ -27,13 +27,16 @@ Hello there! Welcome to Ruby C Extensions, Explained.
 
 This repository, and the example ruby gems in it, were originally written as companion materials for some conference talks being given in 2021 by Mike Dalessio ([@flavorjones](https://twitter.com/flavorjones)).
 
+
 ### [RubyKaigi 2021 talk](https://rubykaigi.org/2021-takeout/presentations/flavorjones.html) 2021-09-11
 
 This talk focuses mostly on the mechanics of the gems in this repository. 
 
+
 ### [RubyConf 2021 talk](https://rubyconf.org/program/sessions#session-1214) 2021-11-08
 
 This talk may cover slightly different material, including an approach to rigorous testing, how to think about Trust in the context of precompilation, and what industrializing precompilation might look like.
+
 
 ## How To Use This Repository
 
@@ -59,6 +62,9 @@ These are actual, working gems! And they've all been pushed to rubygems.org:
 Or they can all be installed as dependencies of the meta-gem `rcee`:
 
 - `gem install rcee`
+
+
+Also note that these gems are tested. In particular, the precompiled native gems have a rather complex setup to build, install, and test across platforms using `rake-compiler-dock` and Github Actions. See the Actions running at https://github.com/flavorjones/ruby-c-extensions-explained/actions
 
 
 ## Strategies
