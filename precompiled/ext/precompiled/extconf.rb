@@ -6,7 +6,6 @@ package_root_dir = File.expand_path(File.join(File.dirname(__FILE__), "..", ".."
 RbConfig::CONFIG["CC"] = RbConfig::MAKEFILE_CONFIG["CC"] = ENV["CC"] if ENV["CC"]
 ENV["CC"] = RbConfig::CONFIG["CC"]
 
-# not needed for libyaml, but generally useful to know whether we're cross-compiling
 cross_build_p = enable_config("cross-build")
 
 MiniPortile.new("yaml", "0.2.5").tap do |recipe|
@@ -17,12 +16,14 @@ MiniPortile.new("yaml", "0.2.5").tap do |recipe|
   recipe.target = File.join(package_root_dir, "ports")
 
   # configure the environment that MiniPortile will use for subshells
-  ENV.to_h.tap do |env|
-    # -fPIC is necessary for linking into a shared library
-    env["CFLAGS"] = [env["CFLAGS"], "-fPIC"].join(" ")
-    env["SUBDIRS"] = "include src" # libyaml: skip tests
+  if cross_build_p
+    ENV.to_h.tap do |env|
+      # -fPIC is necessary for linking into a shared library
+      env["CFLAGS"] = [env["CFLAGS"], "-fPIC"].join(" ")
+      env["SUBDIRS"] = "include src" # libyaml: skip tests
 
-    recipe.configure_options += env.map { |key, value| "#{key}=#{value.strip}" }
+      recipe.configure_options += env.map { |key, value| "#{key}=#{value.strip}" }
+    end
   end
 
   unless File.exist?(File.join(recipe.target, recipe.host, recipe.name, recipe.version))

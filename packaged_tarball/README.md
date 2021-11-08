@@ -54,6 +54,18 @@ This block:
 
 Note that all of those steps happen *before* the Makefile is created -- it's run by `extconf.rb` so that the Makefile will know where to find our libyaml files.
 
+
+## Testing
+
+See [.github/workflows/packaged_source.yml](../.github/workflows/packaged_source.yml)
+
+Key things to note:
+
+- matrix across all supported Rubies and platforms
+- caching the compiled library speeds up builds as well as avoids re-downloading the tarball over and over
+  - note that the cache key includes the platform and the hash of extconf.rb
+
+
 ## What Can Go Wrong
 
 If you run `gem install rcee_packaged_tarball` and see this in action, You'll note that PackagedTarball is significantly slower than PackagedSource, and that's because MiniPortile is running additional configuration steps to build the library.

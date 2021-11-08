@@ -78,6 +78,17 @@ If you run `ldd` on the generated `system.so` you should see `libyaml` listed, s
 	libyaml-0.so.2 => /usr/lib/x86_64-linux-gnu/libyaml-0.so.2 (0x00007f345a3dc000)
 ```
 
+
+## Testing
+
+See [.github/workflows/system.yml](../.github/workflows/system.yml)
+
+Key things to note:
+
+- matrix across all supported Rubies and platforms
+- use the github action `MSP-Greg/setup-ruby-pkgs@v1` to install system libraries on each platform
+
+
 ## What Can Go Wrong
 
 In addition to what's enumerated in `isolated`'s README ...

@@ -1,4 +1,4 @@
-name: ci
+name: system
 concurrency:
   group: "${{github.workflow}}-${{github.ref}}"
   cancel-in-progress: true
@@ -7,14 +7,12 @@ on:
   schedule:
     - cron: "0 8 * * 3" # At 08:00 on Wednesday # https://crontab.guru/#0_8_*_*_3
   push:
-    paths: ["system/**"]
     branches:
       - main
       - v*.*.x
     tags:
       - v*.*.*
   pull_request:
-    paths: ["system/**"]
     types: [opened, synchronize]
     branches:
       - '*'
