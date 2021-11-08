@@ -75,6 +75,16 @@ gcc -shared \
 Now we're able to rely on a specific version of the library existing with known configuration, allowing us to avoid much real-world complexity in our `extconf.rb`, and our code.
 
 
+## Testing
+
+See [.github/workflows/packaged_source.yml](../.github/workflows/packaged_source.yml)
+
+Key things to note:
+
+- testing is simpler than `system` because there are no external dependencies
+- matrix across all supported Rubies and platforms
+
+
 ## What Can Go Wrong
 
 In addition to what's enumerated in `isolated`'s README ...

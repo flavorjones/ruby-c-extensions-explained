@@ -61,6 +61,16 @@ That final shared library, `isolated.so`, is loaded like any other Ruby file, vi
 require_relative "isolated/isolated"
 ```
 
+## Testing
+
+See [.github/workflows/isolated.yml](../.github/workflows/isolated.yml)
+
+Key things to note:
+
+- matrix across all supported versions of Ruby
+- matrix across all supported platforms
+
+
 ## What Can Go Wrong
 
 1. Users don't have the compiler toolchain installed (`gcc`, `ld`, `stdio.h`, `libc.so`, etc.)
