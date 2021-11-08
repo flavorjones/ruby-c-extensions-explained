@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.3.0 / 2021-11-08
+
+### Fixed
+
+- `precompiled` gem now builds correctly when compiling form source on Windows
+
+
+### Added
+
+- Full test coverage for all gems can be inspected at https://github.com/flavorjones/ruby-c-extensions-explained/actions and in `.github/workflows/`.
+
+
 ## 0.2.0 / 2021-09-10
 
 ### Added
