@@ -7,14 +7,12 @@ on:
   schedule:
     - cron: "0 8 * * 3" # At 08:00 on Wednesday # https://crontab.guru/#0_8_*_*_3
   push:
-    paths: ["isolated/**"]
     branches:
       - main
       - v*.*.x
     tags:
       - v*.*.*
   pull_request:
-    paths: ["isolated/**"]
     types: [opened, synchronize]
     branches:
       - '*'
