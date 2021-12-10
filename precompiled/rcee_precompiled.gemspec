@@ -40,6 +40,7 @@ Gem::Specification.new do |spec|
   spec.extensions    = ["ext/precompiled/extconf.rb"]
 
   spec.add_dependency "mini_portile2"
+  spec.add_dependency "racc", "~> 1.6.0"
 
   # For more information and examples about making a new gem, checkout our
   # guide at: https://bundler.io/guides/creating_gem.html
