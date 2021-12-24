@@ -30,12 +30,16 @@ This repository, and the example ruby gems in it, were originally written as com
 
 ### [RubyKaigi 2021 talk](https://rubykaigi.org/2021-takeout/presentations/flavorjones.html) 2021-09-11
 
+([Video](https://www.youtube.com/watch?v=oktN_CbOJKc))
+
 This talk focuses mostly on the mechanics of the gems in this repository. 
 
 
 ### [RubyConf 2021 talk](https://rubyconf.org/program/sessions#session-1214) 2021-11-08
 
-This talk may cover slightly different material, including an approach to rigorous testing, how to think about Trust in the context of precompilation, and what industrializing precompilation might look like.
+([Video](https://www.youtube.com/watch?v=ZqSGkNclOh8))
+
+This talk covers additional material, including how to test extensions, how to think about Trust in the context of precompilation, and why Nokogiri chose to start precompiling.
 
 
 ## How To Use This Repository
