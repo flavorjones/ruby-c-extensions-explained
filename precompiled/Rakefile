@@ -9,6 +9,7 @@ require "rake_compiler_dock"
 cross_rubies = ["3.1.0", "3.0.0", "2.7.0", "2.6.0"]
 cross_platforms = [
   "x64-mingw32",
+  "x64-mingw-ucrt",
   "x86-linux",
   "x86_64-linux",
   "x86_64-darwin",
