@@ -22,7 +22,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        ruby: ["2.5", "2.6", "2.7", "3.0"]
+        ruby: ["2.6", "2.7", "3.0", "3.1"]
         runs-on: ["ubuntu-latest", "macos-latest", "windows-latest"]
     runs-on: ${{matrix.runs-on}}
     steps:
@@ -68,7 +68,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        ruby: ["2.5", "2.6", "2.7", "3.0"]
+        ruby: ["2.6", "2.7", "3.0", "3.1"]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -87,7 +87,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        ruby: ["2.5", "2.6", "2.7", "3.0"]
+        ruby: ["2.6", "2.7", "3.0", "3.1"]
     runs-on: ubuntu-latest
     container:
       image: "ruby:${{matrix.ruby}}-alpine"
@@ -106,7 +106,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        ruby: ["2.5", "2.6", "2.7", "3.0"]
+        ruby: ["2.6", "2.7", "3.0", "3.1"]
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v2
@@ -125,7 +125,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        ruby: ["2.5", "2.6", "2.7", "3.0"]
+        ruby: ["2.6", "2.7", "3.0", "3.1"]
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v2
