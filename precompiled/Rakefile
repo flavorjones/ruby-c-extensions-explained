@@ -7,7 +7,13 @@ require "rake/extensiontask"
 require "rake_compiler_dock"
 
 cross_rubies = ["3.1.0", "3.0.0", "2.7.0", "2.6.0"]
-cross_platforms = ["x64-mingw32", "x86_64-linux", "x86_64-darwin", "arm64-darwin"]
+cross_platforms = [
+  "x64-mingw32",
+  "x86-linux",
+  "x86_64-linux",
+  "x86_64-darwin",
+  "arm64-darwin",
+]
 ENV["RUBY_CC_VERSION"] = cross_rubies.join(":")
 
 rcee_precompiled_spec = Bundler.load_gemspec("rcee_precompiled.gemspec")
