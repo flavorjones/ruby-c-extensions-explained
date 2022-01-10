@@ -61,11 +61,12 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        # arm64-darwin is omitted until github actions supports it
         plat:
           - "x86-linux"
           - "x86_64-linux"
+          - "aarch64-linux"
           - "x86_64-darwin"
+#          - "arm64-darwin" # omitted until github actions supports it
           - "x64-mingw32"
           - "x64-mingw-ucrt"
     runs-on: ubuntu-latest
@@ -125,6 +126,26 @@ jobs:
             ruby:${{matrix.ruby}} \
             ./bin/test-gem-install ./gems
 
+  cruby-aarch64-linux-install:
+    needs: ["cruby-native-package"]
+    strategy:
+      fail-fast: false
+      matrix:
+        ruby: ["2.6", "2.7", "3.0", "3.1"]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/download-artifact@v2
+        with:
+          name: cruby-aarch64-linux-gem
+          path: precompiled/gems
+      - run: |
+          docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
+          docker run --rm -v "$(pwd)/precompiled:/precompiled" -w /precompiled \
+            --platform=linux/arm64/v8 \
+            ruby:${{matrix.ruby}} \
+            ./bin/test-gem-install ./gems
+
   cruby-x86_64-musl-install:
     needs: ["cruby-native-package"]
     strategy:
@@ -162,6 +183,10 @@ jobs:
           path: precompiled/gems
       - run: ./bin/test-gem-install gems
         working-directory: precompiled
+
+## arm64-darwin installation testing is omitted until github actions supports it
+#  cruby-arm64-darwin-install:
+#    ...
 
   cruby-x64-mingw32-install:
     needs: ["cruby-native-package"]
