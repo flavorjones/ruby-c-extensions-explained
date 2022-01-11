@@ -22,15 +22,32 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        ruby: ["2.5", "2.6", "2.7", "3.0"]
-        runs-on: ["ubuntu-latest", "macos-latest", "windows-latest"]
+        ruby: ["2.6", "2.7", "3.0", "3.1"]
+        runs-on: ["ubuntu-latest", "macos-latest"]
+        include:
+          - ruby: "2.6"
+            runs-on: "windows-2019"
+          - ruby: "2.7"
+            runs-on: "windows-2019"
+          - ruby: "3.0"
+            runs-on: "windows-2019"
+          - ruby: "3.1"
+            runs-on: "windows-2022"
     runs-on: ${{matrix.runs-on}}
     steps:
       - uses: actions/checkout@v2
-      - uses: ruby/setup-ruby@v1
+      - if: ${{ matrix.runs-on != 'windows-2022' }}
+        uses: ruby/setup-ruby@v1
         with:
           working-directory: precompiled
           ruby-version: ${{matrix.ruby}}
+          bundler-cache: true
+      - if: ${{ matrix.runs-on == 'windows-2022' }}
+        uses: MSP-Greg/setup-ruby-pkgs@win-ucrt-2
+        with:
+          working-directory: precompiled
+          setup-ruby-ref: MSP-Greg/ruby-setup-ruby/win-ucrt-1
+          ruby-version: "${{matrix.ruby}}"
           bundler-cache: true
       - uses: actions/cache@v2
         with:
@@ -44,19 +61,26 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        # arm64-darwin is omitted until github actions supports it
-        plat: ["x86_64-linux", "x86_64-darwin", "x64-mingw32"]
+        plat:
+          - "x86-linux"
+          - "x86_64-linux"
+          - "aarch64-linux"
+          - "x86_64-darwin"
+#          - "arm64-darwin" # omitted until github actions supports it
+          - "x64-mingw32"
+          - "x64-mingw-ucrt"
     runs-on: ubuntu-latest
-    container:
-      image: "larskanis/rake-compiler-dock-mri-${{matrix.plat}}:1.1.0"
     steps:
       - uses: actions/checkout@v2
       - uses: actions/cache@v2
         with:
           path: precompiled/ports/archives
           key: archives-ubuntu-${{hashFiles('precompiled/ext/precompiled/extconf.rb')}}
-      - run: "./bin/test-gem-build gems ${{matrix.plat}}"
-        working-directory: precompiled
+      - run: |
+          docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
+          docker run --rm -v "$(pwd)/precompiled:/precompiled" -w /precompiled \
+            larskanis/rake-compiler-dock-mri-${{matrix.plat}}:1.2.0 \
+            ./bin/test-gem-build gems ${{matrix.plat}}
       - uses: actions/upload-artifact@v2
         with:
           name: "cruby-${{matrix.plat}}-gem"
@@ -68,7 +92,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        ruby: ["2.5", "2.6", "2.7", "3.0"]
+        ruby: ["2.6", "2.7", "3.0", "3.1"]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -82,12 +106,52 @@ jobs:
       - run: ./bin/test-gem-install gems
         working-directory: precompiled
 
+  cruby-x86-linux-install:
+    needs: ["cruby-native-package"]
+    strategy:
+      fail-fast: false
+      matrix:
+        ruby: ["2.6", "2.7", "3.0", "3.1"]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/download-artifact@v2
+        with:
+          name: cruby-x86-linux-gem
+          path: precompiled/gems
+      - run: |
+          docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
+          docker run --rm -v "$(pwd)/precompiled:/precompiled" -w /precompiled \
+            --platform=linux/386 \
+            ruby:${{matrix.ruby}} \
+            ./bin/test-gem-install ./gems
+
+  cruby-aarch64-linux-install:
+    needs: ["cruby-native-package"]
+    strategy:
+      fail-fast: false
+      matrix:
+        ruby: ["2.6", "2.7", "3.0", "3.1"]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/download-artifact@v2
+        with:
+          name: cruby-aarch64-linux-gem
+          path: precompiled/gems
+      - run: |
+          docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
+          docker run --rm -v "$(pwd)/precompiled:/precompiled" -w /precompiled \
+            --platform=linux/arm64/v8 \
+            ruby:${{matrix.ruby}} \
+            ./bin/test-gem-install ./gems
+
   cruby-x86_64-musl-install:
     needs: ["cruby-native-package"]
     strategy:
       fail-fast: false
       matrix:
-        ruby: ["2.5", "2.6", "2.7", "3.0"]
+        ruby: ["2.6", "2.7", "3.0", "3.1"]
     runs-on: ubuntu-latest
     container:
       image: "ruby:${{matrix.ruby}}-alpine"
@@ -106,7 +170,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        ruby: ["2.5", "2.6", "2.7", "3.0"]
+        ruby: ["2.6", "2.7", "3.0", "3.1"]
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v2
@@ -120,13 +184,17 @@ jobs:
       - run: ./bin/test-gem-install gems
         working-directory: precompiled
 
+## arm64-darwin installation testing is omitted until github actions supports it
+#  cruby-arm64-darwin-install:
+#    ...
+
   cruby-x64-mingw32-install:
     needs: ["cruby-native-package"]
     strategy:
       fail-fast: false
       matrix:
-        ruby: ["2.5", "2.6", "2.7", "3.0"]
-    runs-on: windows-latest
+        ruby: ["2.6", "2.7", "3.0"]
+    runs-on: windows-2019
     steps:
       - uses: actions/checkout@v2
       - uses: ruby/setup-ruby@v1
@@ -135,6 +203,26 @@ jobs:
       - uses: actions/download-artifact@v2
         with:
           name: cruby-x64-mingw32-gem
+          path: precompiled/gems
+      - run: ./bin/test-gem-install gems
+        working-directory: precompiled
+
+  cruby-x64-mingw-ucrt-install:
+    needs: ["cruby-native-package"]
+    strategy:
+      fail-fast: false
+      matrix:
+        ruby: ["3.1"]
+    runs-on: windows-2022
+    steps:
+      - uses: actions/checkout@v2
+      - uses: MSP-Greg/setup-ruby-pkgs@win-ucrt-2
+        with:
+          ruby-version: "${{matrix.ruby}}"
+          setup-ruby-ref: MSP-Greg/ruby-setup-ruby/win-ucrt-1
+      - uses: actions/download-artifact@v2
+        with:
+          name: cruby-x64-mingw-ucrt-gem
           path: precompiled/gems
       - run: ./bin/test-gem-install gems
         working-directory: precompiled

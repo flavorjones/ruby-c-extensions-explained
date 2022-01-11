@@ -26,8 +26,16 @@ This is really powerful stuff, and once we assume that we can cross-compile reli
 First, we need to add some features to our `Rake::ExtensionTask` in `Rakefile`:
 
 ``` ruby
-cross_rubies = ["3.0.0", "2.7.0", "2.6.0", "2.5.0"]
-cross_platforms = ["x64-mingw32", "x86_64-linux", "x86_64-darwin", "arm64-darwin"]
+cross_rubies = ["3.1.0", "3.0.0", "2.7.0", "2.6.0"]
+cross_platforms = [
+  "x64-mingw32",
+  "x64-mingw-ucrt",
+  "x86-linux",
+  "x86_64-linux",
+  "aarch64-linux",
+  "x86_64-darwin",
+  "arm64-darwin",
+]
 ENV["RUBY_CC_VERSION"] = cross_rubies.join(":")
 
 Rake::ExtensionTask.new("precompiled", rcee_precompiled_spec) do |ext|
@@ -120,13 +128,13 @@ We have one more small change we'll need to make to how the extension is require
 lib
 └── rcee
     ├── precompiled
-    │   ├── 2.5
-    │   │   └── precompiled.so
     │   ├── 2.6
     │   │   └── precompiled.so
     │   ├── 2.7
     │   │   └── precompiled.so
     │   ├── 3.0
+    │   │   └── precompiled.so
+    │   ├── 3.1
     │   │   └── precompiled.so
     │   └── version.rb
     └── precompiled.rb
