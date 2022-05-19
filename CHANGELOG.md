@@ -1,10 +1,17 @@
 # Changelog
 
+## 0.4.0 / 2022-05-19
+
+### Added
+
+- `precompiled` gem now supports the `arm-linux` platform.
+
+
 ## 0.3.0 / 2021-11-08
 
 ### Fixed
 
-- `precompiled` gem now builds correctly when compiling form source on Windows
+- `precompiled` gem now builds correctly when compiling from source on Windows.
 
 
 ### Added
