@@ -61,13 +61,14 @@ jobs:
       fail-fast: false
       matrix:
         plat:
-          - "x86-linux"
-          - "x86_64-linux"
           - "aarch64-linux"
-          - "x86_64-darwin"
-#          - "arm64-darwin" # omitted until github actions supports it
-          - "x64-mingw32"
+          - "arm-linux"
+          # - "arm64-darwin" # omitted until github actions supports it
           - "x64-mingw-ucrt"
+          - "x64-mingw32"
+          - "x86-linux"
+          - "x86_64-darwin"
+          - "x86_64-linux"
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -141,6 +142,26 @@ jobs:
           docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
           docker run --rm -v "$(pwd)/precompiled:/precompiled" -w /precompiled \
             --platform=linux/arm64/v8 \
+            ruby:${{matrix.ruby}} \
+            ./bin/test-gem-install ./gems
+
+  cruby-arm-linux-install:
+    needs: ["cruby-native-package"]
+    strategy:
+      fail-fast: false
+      matrix:
+        ruby: ["2.6", "2.7", "3.0", "3.1"]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/download-artifact@v2
+        with:
+          name: cruby-arm-linux-gem
+          path: precompiled/gems
+      - run: |
+          docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
+          docker run --rm -v "$(pwd)/precompiled:/precompiled" -w /precompiled \
+            --platform=linux/arm/v7 \
             ruby:${{matrix.ruby}} \
             ./bin/test-gem-install ./gems
 
