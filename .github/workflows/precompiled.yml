@@ -43,10 +43,9 @@ jobs:
           ruby-version: ${{matrix.ruby}}
           bundler-cache: true
       - if: ${{ matrix.runs-on == 'windows-2022' }}
-        uses: MSP-Greg/setup-ruby-pkgs@win-ucrt-2
+        uses: MSP-Greg/setup-ruby-pkgs@v1
         with:
           working-directory: precompiled
-          setup-ruby-ref: MSP-Greg/ruby-setup-ruby/win-ucrt-1
           ruby-version: "${{matrix.ruby}}"
           bundler-cache: true
       - uses: actions/cache@v2
@@ -215,10 +214,9 @@ jobs:
     runs-on: windows-2022
     steps:
       - uses: actions/checkout@v2
-      - uses: MSP-Greg/setup-ruby-pkgs@win-ucrt-2
+      - uses: MSP-Greg/setup-ruby-pkgs@v1
         with:
           ruby-version: "${{matrix.ruby}}"
-          setup-ruby-ref: MSP-Greg/ruby-setup-ruby/win-ucrt-1
       - uses: actions/download-artifact@v2
         with:
           name: cruby-x64-mingw-ucrt-gem
