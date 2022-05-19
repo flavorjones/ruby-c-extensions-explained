@@ -4,7 +4,11 @@
 
 ### Added
 
+- `precompiled` gem now supports Ruby 3.1 and drops support for Ruby 2.5
+- `precompiled` gem now supports the `aarch64-linux` platform.
 - `precompiled` gem now supports the `arm-linux` platform.
+- `precompiled` gem now supports the `x86-linux` platform.
+- `precompiled` gem now supports the `x64-mingw-ucrt` platform for Ruby 3.1
 
 
 ## 0.3.0 / 2021-11-08
