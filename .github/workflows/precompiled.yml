@@ -22,8 +22,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        ruby: ["2.6", "2.7", "3.0", "3.1"]
         runs-on: ["ubuntu-latest", "macos-latest"]
+        ruby: ["2.6", "2.7", "3.0", "3.1"]
         include:
           - ruby: "2.6"
             runs-on: "windows-2019"
@@ -36,17 +36,10 @@ jobs:
     runs-on: ${{matrix.runs-on}}
     steps:
       - uses: actions/checkout@v2
-      - if: ${{ matrix.runs-on != 'windows-2022' }}
-        uses: ruby/setup-ruby@v1
+      - uses: ruby/setup-ruby@v1
         with:
           working-directory: precompiled
           ruby-version: ${{matrix.ruby}}
-          bundler-cache: true
-      - if: ${{ matrix.runs-on == 'windows-2022' }}
-        uses: MSP-Greg/setup-ruby-pkgs@v1
-        with:
-          working-directory: precompiled
-          ruby-version: "${{matrix.ruby}}"
           bundler-cache: true
       - uses: actions/cache@v2
         with:
@@ -55,8 +48,117 @@ jobs:
       - run: bundle exec rake compile test
         working-directory: precompiled
 
+  cruby-package:
+    runs-on: "ubuntu-latest"
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/cache@v2
+        with:
+          path: precompiled/ports/archives
+          key: archives-ubuntu-${{hashFiles('precompiled/ext/precompiled/extconf.rb')}}
+      - uses: ruby/setup-ruby@v1
+        with:
+          working-directory: precompiled
+          ruby-version: "3.1"
+          bundler-cache: true
+      - run: ./bin/test-gem-build gems ruby
+        working-directory: precompiled
+      - uses: actions/upload-artifact@v2
+        with:
+          name: cruby-gem
+          path: precompiled/gems
+          retention-days: 1
+
+  cruby-linux-install:
+    needs: ["cruby-package"]
+    strategy:
+      fail-fast: false
+      matrix:
+        ruby: ["2.6", "2.7", "3.0", "3.1", "head"]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: ruby/setup-ruby@v1
+        with:
+          working-directory: precompiled
+          ruby-version: "${{matrix.ruby}}"
+      - uses: actions/download-artifact@v2
+        with:
+          name: cruby-gem
+          path: precompiled/gems
+      - run: ./bin/test-gem-install gems
+        working-directory: precompiled
+
+  cruby-osx-install:
+    needs: ["cruby-package"]
+    strategy:
+      fail-fast: false
+      matrix:
+        ruby: ["3.1"]
+        sys: ["enable", "disable"]
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: ruby/setup-ruby@v1
+        with:
+          working-directory: precompiled
+          ruby-version: "${{matrix.ruby}}"
+      - uses: actions/download-artifact@v2
+        with:
+          name: cruby-gem
+          path: precompiled/gems
+      - run: ./bin/test-gem-install gems
+        working-directory: precompiled
+
+  cruby-windows-install:
+    needs: ["cruby-package"]
+    strategy:
+      fail-fast: false
+      matrix:
+        ruby: ["3.0"]
+        sys: ["enable", "disable"]
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: ruby/setup-ruby@v1
+        with:
+          working-directory: precompiled
+          ruby-version: "3.0"
+      - uses: actions/download-artifact@v2
+        with:
+          name: cruby-gem
+          path: precompiled/gems
+      - run: |
+          gem install --verbose --no-document gems/*.gem
+          gem list -d rcee_precompiled
+          ruby -r rcee/precompiled -e 'puts ::RCEE::Precompiled::Extension.do_something'
+        working-directory: precompiled
+
+  cruby-windows-install-ucrt:
+    needs: ["cruby-package"]
+    strategy:
+      fail-fast: false
+      matrix:
+        ruby: ["3.1"]
+        sys: ["enable", "disable"]
+    runs-on: windows-2022
+    steps:
+      - uses: actions/checkout@v2
+      - uses: ruby/setup-ruby@v1
+        with:
+          working-directory: precompiled
+          ruby-version: "3.0"
+      - uses: actions/download-artifact@v2
+        with:
+          name: cruby-gem
+          path: precompiled/gems
+      - run: |
+          gem install --verbose --no-document gems/*.gem
+          gem list -d rcee_precompiled
+          ruby -r rcee/precompiled -e 'puts ::RCEE::Precompiled::Extension.do_something'
+        working-directory: precompiled
+
   cruby-native-package:
-    name: "cruby-native-package"
     strategy:
       fail-fast: false
       matrix:
