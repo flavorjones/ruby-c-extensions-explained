@@ -1,5 +1,12 @@
 # Changelog
 
+## next / unreleased
+
+### Added
+
+- `precompiled` gem now supports Ruby 3.2 and drops support for Ruby 2.6
+
+
 ## 0.4.0 / 2022-05-19
 
 ### Added
