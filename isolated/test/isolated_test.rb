@@ -2,7 +2,7 @@
 
 require "test_helper"
 
-class IsolatedTest < MiniTest::Spec
+class IsolatedTest < Minitest::Spec
   describe "Isolated" do
     it "defines a class" do
       assert(defined?(::RCEE::Isolated::Extension))
