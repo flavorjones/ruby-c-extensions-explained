@@ -1,0 +1,28 @@
+# https://docs.github.com/github/administering-a-repository/configuration-options-for-dependency-updates
+
+version: 2
+updates:
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "bundler"
+    directory: "isolated"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "bundler"
+    directory: "system"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "bundler"
+    directory: "packaged_source"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "bundler"
+    directory: "packaged_tarball"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "bundler"
+    directory: "precompiled"
+    schedule:
+      interval: "weekly"
