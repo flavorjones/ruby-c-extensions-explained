@@ -15,7 +15,7 @@ Gem::Specification.new do |spec|
   spec.summary       = "Example gem demonstrating a basic C extension."
   spec.description   = "Part of a project to explain how Ruby C extensions work."
   spec.homepage      = "https://github.com/flavorjones/ruby-c-extensions-explained"
-  spec.required_ruby_version = ">= 2.6.0"
+  spec.required_ruby_version = ">= 2.7.0"
   spec.license = "MIT"
 
   # Specify which files should be added to the gem when it is released.
