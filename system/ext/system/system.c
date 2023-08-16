@@ -15,7 +15,7 @@ rb_system_extension_class_do_something(VALUE self)
 }
 
 
-void
+RUBY_FUNC_EXPORTED void
 Init_system(void)
 {
   rb_mRCEE = rb_define_module("RCEE");
