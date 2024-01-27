@@ -54,7 +54,7 @@ jobs:
           bundler-cache: true
       - run: ./bin/test-gem-build gems ruby
         working-directory: precompiled
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v4
         with:
           name: cruby-gem
           path: precompiled/gems
@@ -123,7 +123,7 @@ jobs:
           docker run --rm -v $PWD/precompiled:/precompiled -w /precompiled \
             ghcr.io/rake-compiler/rake-compiler-dock-image:${{ needs.rcd_image_version.outputs.rcd_image_version }}-mri-${{ matrix.platform }} \
             ./bin/test-gem-build gems ${{ matrix.platform }}
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v4
         with:
           name: "cruby-${{ matrix.platform }}-gem"
           path: precompiled/gems
