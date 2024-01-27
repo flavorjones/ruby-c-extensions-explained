@@ -16,6 +16,7 @@ on:
     types: [opened, synchronize]
     branches:
       - '*'
+    paths: ["isolated/**/*", ".github/workflows/isolated.yml"]
 
 jobs:
   isolated:

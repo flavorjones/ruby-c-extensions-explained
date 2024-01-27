@@ -16,6 +16,7 @@ on:
     types: [opened, synchronize]
     branches:
       - '*'
+    paths: ["precompiled/**/*", ".github/workflows/precompiled.yml"]
 
 jobs:
   precompiled:

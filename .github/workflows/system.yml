@@ -16,6 +16,7 @@ on:
     types: [opened, synchronize]
     branches:
       - '*'
+    paths: ["system/**/*", ".github/workflows/system.yml"]
 
 jobs:
   system:

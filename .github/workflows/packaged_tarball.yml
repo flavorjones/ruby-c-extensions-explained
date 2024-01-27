@@ -16,6 +16,7 @@ on:
     types: [opened, synchronize]
     branches:
       - '*'
+    paths: ["packaged_tarball/**/*", ".github/workflows/packaged_tarball.yml"]
 
 jobs:
   packaged_tarball:

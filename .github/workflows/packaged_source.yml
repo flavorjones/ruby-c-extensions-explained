@@ -16,6 +16,7 @@ on:
     types: [opened, synchronize]
     branches:
       - '*'
+    paths: ["packaged_source/**/*", ".github/workflows/packaged_source.yml"]
 
 jobs:
   packaged_source:
