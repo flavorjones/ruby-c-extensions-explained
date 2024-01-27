@@ -24,3 +24,20 @@ rake version:set
 ```
 
 which will update the `lib/*/version.rb` file for all the gems. Make sure to commit these changes.
+
+
+## Making a release
+
+- update versions
+  - [ ] bump the versions in `rcee.gemspec`
+  - [ ] `rake version:set`
+  - [ ] update `CHANGELOG.md`
+  - [ ] git commit
+  - [ ] git tag
+- build
+  - [ ] `rake clean clobber`
+  - [ ] `rake package`
+- push
+  - [ ] `for gem in gems/*.gem ; do gem push $gem ; done`
+  - [ ] `git push && git push --tags`
+  - [ ] release marker at https://github.com/flavorjones/ruby-c-extensions-explained/releases
