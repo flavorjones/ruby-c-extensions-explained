@@ -92,30 +92,33 @@ The top task (or, really, _set_ of tasks) runs on the host system, and invokes t
 Changes to the `extconf.rb`:
 
 ``` ruby
-ENV["CC"] = RbConfig::CONFIG["CC"]
+def configure_cross_compilers
+  RbConfig::CONFIG["CC"] = RbConfig::MAKEFILE_CONFIG["CC"] = ENV["CC"] if ENV["CC"]
+  ENV["CC"] = RbConfig::CONFIG["CC"]
+end
 ```
 
 This makes sure that the cross-compiler is the compiler used within the guest container (and not the native linux compiler).
 
 ``` ruby
-cross_build_p = enable_config("cross-build")
+def cross_build?
+  enable_config("cross-build")
+end
 ```
 
 The cross-compile rake task signals to `extconf.rb` that it's cross-compiling by using a commandline flag that we can inspect. We'll need this for `libyaml` to make sure that set the appropriate flags during precompilation (flags which shouldn't be set when compiling natively).
 
 ``` ruby
-MiniPortile.new("yaml", "0.2.5").tap do |recipe|
-  # ...
-  # configure the environment that MiniPortile will use for subshells
-  ENV.to_h.dup.tap do |env|
-    # -fPIC is necessary for linking into a shared library
-    env["CFLAGS"] = [env["CFLAGS"], "-fPIC"].join(" ")
-    env["SUBDIRS"] = "include src" # libyaml: skip tests
+  # pass some environment variables to the libyaml configuration for cross-compilation
+  if cross_build?
+    ENV.to_h.tap do |env|
+      # -fPIC is necessary for linking into a shared library
+      env["CFLAGS"] = [env["CFLAGS"], "-fPIC"].join(" ")
+      env["SUBDIRS"] = "include src" # libyaml: skip tests
 
-    recipe.configure_options += env.map { |key, value| "#{key}=#{value.strip}" }
+      recipe.configure_options += env.map { |key, value| "#{key}=#{value.strip}" }
+    end
   end
-  # ...
-end
 ```
 
 The rest of the extconf changes are related to configuring libyaml at build time. We need to set the -fPIC option so we can mix static and shared libraries together. (This should probably always be set.)

@@ -37,15 +37,25 @@ ext/
 The `extconf.rb` contains some new code:
 
 ``` ruby
+# $VPATH is used as the Makefile's $(VPATH) variable
+# see https://www.gnu.org/software/make/manual/html_node/General-Search.html
 $VPATH << "$(srcdir)/yaml"
+
+# $srcs is normally set to the list of C files in the extension directory,
+# but we need to append the libyaml files to it.
 $srcs = Dir.glob("#{$srcdir}/{,yaml/}*.c").map { |n| File.basename(n) }.sort
+
+# and make sure that the C preprocessor includes the yaml directory in its search path
 append_cppflags("-I$(srcdir)/yaml")
 
-find_header("yaml.h")
+# assert that we can find the yaml.h header file
+abort("could not find yaml.h") unless find_header("yaml.h")
+
+# defines HAVE_CONFIG_H macro
 have_header("config.h")
 ```
 
-It first configures `MakeMakefile` to pay attention to the `./yaml` directory as well as the C and header files. It then verifies that `yaml.h` can be found (we could skip this since we're packing it and setting the include path manually). Finally, a libyaml-specific action is taken which is to make sure `config.h` can be found and that the `HAVE_CONFIG_H` macro is set so that `yaml.h` is compiled properly.
+It first configures `MakeMakefile` to pay attention to the `./yaml` directory as well as the C and header files. It then verifies that `yaml.h` can be found (though we could probably skip this step). Finally, a libyaml-specific action is taken which is to make sure `config.h` can be found and that the `HAVE_CONFIG_H` macro is set so that `yaml.h` is compiled properly.
 
 The `Makefile` recipe looks something like:
 
