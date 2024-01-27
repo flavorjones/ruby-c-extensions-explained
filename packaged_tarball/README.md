@@ -21,38 +21,60 @@ Gem::Specification.new do |spec|
 end
 ```
 
-The `extconf.rb` contains a new block:
+The `extconf.rb` is about to get more complicated. To help manage the complexity, we'll use a module with a `.configure` method:
 
 ``` ruby
-MiniPortile.new("yaml", "0.2.5").tap do |recipe|
-  recipe.target = File.join(package_root_dir, "ports")
-  recipe.files = [{
-    url: "https://github.com/yaml/libyaml/releases/download/0.2.5/yaml-0.2.5.tar.gz",
-    sha256: "c642ae9b75fee120b2d96c712538bd2cf283228d2337df2cf2988e3c02678ef4",
-  }]
+module RCEE
+  module PackagedTarball
+    module ExtConf
+      class << self
+        def configure
+          configure_packaged_libraries
+          create_makefile("rcee/packaged_tarball/packaged_tarball")
+        end
+      end
+    end
+  end
+end
 
+RCEE::PackagedTarball::ExtConf.configure
+```
+
+The `ExtConf` contains a method `configure_packaged_libraries` which uses `mini_portile` to download the library (if necessary); verify the checksum; extract the files; configure, compile, and link it; and finally configure `MakeMakefile` to find the headers and the library:
+
+``` ruby
+def configure_packaged_libraries
+  recipe = libyaml_recipe
+
+  # ensure libyaml has already been unpacked, configured, and compiled
   unless File.exist?(File.join(recipe.target, recipe.host, recipe.name, recipe.version))
     recipe.cook
   end
 
+  # use the packaged libyaml
   recipe.activate
   pkg_config(File.join(recipe.path, "lib", "pkgconfig", "yaml-0.1.pc"))
+
+  # assert that we can build against the packaged libyaml
+  unless have_library("yaml", "yaml_get_version", "yaml.h")
+    abort("\nERROR: *** could not find libyaml development environment ***\n\n")
+  end
+end
+
+def libyaml_recipe
+  MiniPortile.new("yaml", "0.2.5").tap do |recipe|
+    recipe.files = [{
+      url: "https://github.com/yaml/libyaml/releases/download/0.2.5/yaml-0.2.5.tar.gz",
+      sha256: "c642ae9b75fee120b2d96c712538bd2cf283228d2337df2cf2988e3c02678ef4"
+    }]
+    recipe.target = File.join(PACKAGE_ROOT_DIR, "ports")
+  end
 end
 ```
 
-This block:
+Of special note, we're able to use `pkgconfig` to do much of our extension configuration, which allows us to have a pretty clean configuration. This is one advantage to using upstream distributions.
 
-- downloads the libyaml tarball if necessary (note that the packaged gem includes the tarball and so this is skipped by end users during `gem install`)
-- verifies the checksum of the tarball
-- extracts the tarball
-- configures the build system (for libyaml, this is "autoconf")
-- compile libyaml's source code into object files
-- link the object files together into a library we can use
-- configure `MakeMakefile` to find the headers and the library
-
-(Of special note, we're able to use `pkgconfig` to do much of our extension configuration, which allows us to have a pretty clean configuration. This is one advantage to using upstream distributions.)
-
-Note that all of those steps happen *before* the Makefile is created -- it's run by `extconf.rb` so that the Makefile will know where to find our libyaml files.
+Note that all of those steps happen *before* the Makefile is created, so that the Makefile will contain the appropriate paths and flags to build our extension against libyaml.
 
 
 ## Testing
