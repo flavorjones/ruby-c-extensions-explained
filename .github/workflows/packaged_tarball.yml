@@ -32,7 +32,7 @@ jobs:
           working-directory: packaged_tarball
           ruby-version: ${{matrix.ruby}}
           bundler-cache: true
-      - uses: actions/cache@v2
+      - uses: actions/cache@v4
         with:
           path: packaged_tarball/ports
           key: packaged_tarball-ports-${{matrix.runs-on}}-${{hashFiles('packaged_tarball/ext/packaged_tarball/extconf.rb')}}
