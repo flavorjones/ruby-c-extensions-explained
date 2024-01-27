@@ -4,7 +4,8 @@
 
 ### Added
 
-- `precompiled` gem now supports Ruby 3.2 and drops support for Ruby 2.6
+- `precompiled` gem now supports Ruby 3.2 and 3.3, and drops support for Ruby 2.6 and 2.7
+- The `extconf.rb` file in `packaged_tarball` and `precompiled` now use a `ExtConf` module pattern for encapsulation.
 
 
 ## 0.4.0 / 2022-05-19
