@@ -25,7 +25,7 @@ ENV["RUBY_CC_VERSION"] = cross_rubies.join(":")
 
 rcee_precompiled_spec = Bundler.load_gemspec("rcee_precompiled.gemspec")
 Gem::PackageTask.new(rcee_precompiled_spec).define #packaged_tarball version of the gem for platform=ruby
-task "package" => cross_platforms.map { |p| "gem:#{p}" } # "package" task for all the native platforms
+task "package" => "gem:all"
 
 Rake::TestTask.new(:test) do |t|
   t.libs << "test"
