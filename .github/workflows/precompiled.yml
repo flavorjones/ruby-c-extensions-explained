@@ -74,7 +74,7 @@ jobs:
         with:
           working-directory: precompiled
           ruby-version: "${{ matrix.ruby }}"
-      - uses: actions/download-artifact@v2
+      - uses: actions/download-artifact@v4
         with:
           name: cruby-gem
           path: precompiled/gems
@@ -148,7 +148,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/download-artifact@v2
+      - uses: actions/download-artifact@v4
         with:
           name: cruby-${{ matrix.platform }}-gem
           path: precompiled/gems
@@ -169,7 +169,7 @@ jobs:
       image: "ruby:${{matrix.ruby}}-alpine"
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/download-artifact@v2
+      - uses: actions/download-artifact@v4
         with:
           name: cruby-x86_64-linux-gem
           path: precompiled/gems
@@ -189,7 +189,7 @@ jobs:
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: "${{matrix.ruby}}"
-      - uses: actions/download-artifact@v2
+      - uses: actions/download-artifact@v4
         with:
           name: cruby-x86_64-darwin-gem
           path: precompiled/gems
@@ -212,7 +212,7 @@ jobs:
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: "${{matrix.ruby}}"
-      - uses: actions/download-artifact@v2
+      - uses: actions/download-artifact@v4
         with:
           name: cruby-x64-mingw32-gem
           path: precompiled/gems
@@ -231,7 +231,7 @@ jobs:
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: "${{matrix.ruby}}"
-      - uses: actions/download-artifact@v2
+      - uses: actions/download-artifact@v4
         with:
           name: cruby-x64-mingw-ucrt-gem
           path: precompiled/gems
