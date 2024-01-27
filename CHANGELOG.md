@@ -1,9 +1,13 @@
 # Changelog
 
-## next / unreleased
+## v0.5.0 / 2024-01-27
 
 ### Added
 
+- `precompiled` now supports the `arm-linux-musl` platform.
+- `precompiled` now supports the `aarch64-linux-musl` platform.
+- `precompiled` now supports the `x86-linux-musl` platform.
+- `precompiled` now supports the `x86_64-linux-musl` platform.
 - `precompiled` gem now supports Ruby 3.2 and 3.3, and drops support for Ruby 2.6 and 2.7
 - The `extconf.rb` file in `packaged_tarball` and `precompiled` now use a `ExtConf` module pattern for encapsulation.
 
