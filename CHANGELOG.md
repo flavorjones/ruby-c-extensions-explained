@@ -1,15 +1,47 @@
 # Changelog
 
+## v0.5.next / unreleased
+
+### `precompiled`
+
+- The `precompiled` gem has switched from building `-linux` platform gems (implicit `gnu`) to explicit `-linux-gnu` platform gems, and now supports these platforms:
+  - `aarch64-linux-gnu`
+  - `aarch64-linux-musl`
+  - `arm-linux-gnu`
+  - `arm-linux-musl`
+  - `arm64-darwin`
+  - `x64-mingw-ucrt`
+  - `x64-mingw32`
+  - `x86-linux-gnu`
+  - `x86-linux-musl`
+  - `x86_64-darwin`
+  - `x86_64-linux-gnu`
+  - `x86_64-linux-musl`
+
+
 ## v0.5.0 / 2024-01-27
 
-### Added
+### Improved
 
-- `precompiled` now supports the `arm-linux-musl` platform.
-- `precompiled` now supports the `aarch64-linux-musl` platform.
-- `precompiled` now supports the `x86-linux-musl` platform.
-- `precompiled` now supports the `x86_64-linux-musl` platform.
-- `precompiled` gem now supports Ruby 3.2 and 3.3, and drops support for Ruby 2.6 and 2.7
 - The `extconf.rb` file in `packaged_tarball` and `precompiled` now use a `ExtConf` module pattern for encapsulation.
+
+### `precompiled`
+
+- The `precompiled` gem now supports Ruby 3.2 and 3.3, and drops support for Ruby 2.6 and 2.7
+- The `precompiled` gem has added `musl` support for linux, and now supports these platforms:
+  - `aarch64-linux`
+  - `aarch64-linux-musl`
+  - `arm-linux`
+  - `arm-linux-musl`
+  - `arm64-darwin`
+  - `x64-mingw-ucrt`
+  - `x64-mingw32`
+  - `x86-linux`
+  - `x86-linux-musl`
+  - `x86_64-darwin`
+  - `x86_64-linux`
+  - `x86_64-linux-musl`
+
 
 
 ## 0.4.0 / 2022-05-19
