@@ -42,6 +42,11 @@ Rake::ExtensionTask.new("precompiled", rcee_precompiled_spec) do |ext|
     # remove things not needed for precompiled gems
     spec.dependencies.reject! { |dep| dep.name == "mini_portile2" }
     spec.files.reject! { |file| File.fnmatch?("*.tar.gz", file) }
+
+    if spec.platform.os == "linux"
+      # the `-gnu` suffix is not recognized in earlier versions of rubygems
+      spec.required_rubygems_version.concat([">= 3.3.22"])
+    end
   end
 end
 
