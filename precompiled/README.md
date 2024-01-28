@@ -28,13 +28,18 @@ First, we need to add some features to our `Rake::ExtensionTask` in `Rakefile`:
 ``` ruby
 cross_rubies = ["3.3.0", "3.2.0", "3.1.0", "3.0.0"]
 cross_platforms = [
-  "x64-mingw32",
-  "x64-mingw-ucrt",
-  "x86-linux",
-  "x86_64-linux",
-  "aarch64-linux",
-  "x86_64-darwin",
+  "aarch64-linux-gnu",
+  "aarch64-linux-musl",
+  "arm-linux-gnu",
+  "arm-linux-musl",
   "arm64-darwin",
+  "x64-mingw-ucrt",
+  "x64-mingw32",
+  "x86-linux-gnu",
+  "x86-linux-musl",
+  "x86_64-darwin",
+  "x86_64-linux-gnu",
+  "x86_64-linux-musl",
 ]
 ENV["RUBY_CC_VERSION"] = cross_rubies.join(":")
 
@@ -159,6 +164,22 @@ end
 ```
 
 Go ahead and try it! `gem install rcee_precompiled`. If you're on windows, linux, or macos you should get a precompiled version that installs in under a second. Everyone else (hello FreeBSD people!) it'll take a few more seconds to build the vanilla gem's packaged tarball.
+
+
+### Windows notes
+
+You may have noticed that the gem for `x64-mingw32` only contains `.../3.0/precompiled.so` and not a shared library for 3.1, 3.2, or 3.3. Conversely, the gem for `x64-mingw-ucrt` does *not* contain 3.0 (but contains 3.1..3.3 inclusive).
+
+This is because the Windows installer for Ruby switched from `msvcrt` to `ucrt` for the C standard library. Rubies 3.0 and earlier use `msvcrt` but later Rubies use `ucrt`. So if you're on Ruby 3.0 on Windows, bundler will resolve your platform as `x64-mingw32`; but if you're on Ruby 3.1 or later, bundler will resolve your platform as `x64-mingw-ucrt`. See [the rubyinstaller release notes](https://rubyinstaller.org/2021/12/31/rubyinstaller-3.1.0-1-released.html) for more information.
+
+This is all taken care of for you by `rake-compiler-dock` and there's no additional work necessary to create those specialized native gems. However, you'll see this libc transition in the CI testing matrix in `.github/workflows/precompiled.yml`.
+
+
+### Linux notes
+
+On Linux, the default C library for a long time was GNU libc, and so when you see native gem platforms like `x86_64-linux` the _implied_ libc is `gnu`. However, in recent years the `musl` libc project has gotten off the ground in distributions like Alpine. Often, `musl` systems are able to run code compiled on (and for) `gnu` systems; but not always. And in those incompatible cases, users had to work around it or avoid Alpine.
+
+As of Rubygems 3.3.22, the `gem` and `bundle` tools are able to distinguish platforms by their libc type (e.g., `x86_64-linux-gnu` versus `x86_64-linux-musl`); and `rake-compiler-dock` started to be able to build `musl` native gems as of v1.5.0.
 
 
 ## Testing
