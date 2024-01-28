@@ -1,6 +1,6 @@
 # Changelog
 
-## v0.5.next / unreleased
+## v0.5.1 / 2024-01-28
 
 ### `precompiled`
 
@@ -41,7 +41,6 @@
   - `x86_64-darwin`
   - `x86_64-linux`
   - `x86_64-linux-musl`
-
 
 
 ## 0.4.0 / 2022-05-19

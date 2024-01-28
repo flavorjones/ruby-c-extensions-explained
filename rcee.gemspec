@@ -1,8 +1,10 @@
 # frozen_string_literal: true
 
 Gem::Specification.new do |spec|
+  rcee_version = "0.5.1"
+
   spec.name          = "rcee"
-  spec.version       = "0.5.0"
+  spec.version       = rcee_version
   spec.authors       = ["Mike Dalessio"]
   spec.email         = ["mike.dalessio@gmail.com"]
 
@@ -12,9 +14,9 @@ Gem::Specification.new do |spec|
   spec.required_ruby_version = ">= 2.6.0"
   spec.license = "MIT"
 
-  spec.add_dependency "rcee_isolated", "= 0.5.0"
-  spec.add_dependency "rcee_packaged_source", "= 0.5.0"
-  spec.add_dependency "rcee_packaged_tarball", "= 0.5.0"
-  spec.add_dependency "rcee_precompiled", "= 0.5.0"
-  spec.add_dependency "rcee_system", "= 0.5.0"
+  spec.add_dependency "rcee_isolated", "= #{rcee_version}"
+  spec.add_dependency "rcee_packaged_source", "= #{rcee_version}"
+  spec.add_dependency "rcee_packaged_tarball", "= #{rcee_version}"
+  spec.add_dependency "rcee_precompiled", "= #{rcee_version}"
+  spec.add_dependency "rcee_system", "= #{rcee_version}"
 end
