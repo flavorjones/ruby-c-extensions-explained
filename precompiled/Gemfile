@@ -7,7 +7,7 @@ gemspec
 
 gem "rake", "~> 13.0"
 
-gem "rake-compiler"
+gem "rake-compiler", "1.2.7"
 gem "rake-compiler-dock", "1.5.0.rc1"
 
 gem "minitest", "~> 5.0"
