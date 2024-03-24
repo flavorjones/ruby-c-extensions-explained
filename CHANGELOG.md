@@ -1,5 +1,10 @@
 # Changelog
 
+## v0.5.0.1 / 2024-03-01
+
+- `precompiled` uses `rake-compiler` v1.2.7 to ensure `required_rubygems_version` is set properly in the gemspec , see https://github.com/rake-compiler/rake-compiler/pull/236 for more details.
+
+
 ## v0.5.0 / 2024-01-27
 
 ### Added
