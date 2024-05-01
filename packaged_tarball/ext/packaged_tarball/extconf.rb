@@ -26,7 +26,7 @@ module RCEE
           pkg_config(File.join(recipe.path, "lib", "pkgconfig", "yaml-0.1.pc"))
 
           # assert that we can build against the packaged libyaml
-          unless have_library("yaml", "yaml_get_version", "yaml.h")
+          unless find_header("yaml.h") && have_library("yaml", "yaml_get_version", "yaml.h")
             abort("\nERROR: *** could not find libyaml development environment ***\n\n")
           end
         end
