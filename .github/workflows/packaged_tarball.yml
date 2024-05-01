@@ -27,6 +27,11 @@ jobs:
         runs-on: ["ubuntu-latest", "macos-latest", "windows-latest"]
     runs-on: ${{matrix.runs-on}}
     steps:
+      - name: configure git crlf
+        if: matrix.runs-on == 'windows-latest'
+        run: |
+          git config --system core.autocrlf false
+          git config --system core.eol lf
       - uses: actions/checkout@v4
       - uses: ruby/setup-ruby@v1
         with:
