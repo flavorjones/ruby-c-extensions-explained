@@ -43,7 +43,7 @@ jobs:
         run: bundle exec ruby -e 'require "rake_compiler_dock"; puts "rcd_image_version=#{RakeCompilerDock::IMAGE_VERSION}"' >> $GITHUB_OUTPUT
         working-directory: precompiled
 
-  precompiled:
+  test:
     needs: ["ruby_versions"]
     strategy:
       fail-fast: false
@@ -65,7 +65,7 @@ jobs:
       - run: bundle exec rake compile test
         working-directory: precompiled
 
-  cruby-package:
+  generic-package:
     runs-on: "ubuntu-latest"
     steps:
       - uses: actions/checkout@v4
@@ -86,8 +86,8 @@ jobs:
           path: precompiled/gems
           retention-days: 1
 
-  cruby-install:
-    needs: ["cruby-package", "ruby_versions"]
+  generic-install:
+    needs: ["generic-package", "ruby_versions"]
     strategy:
       fail-fast: false
       matrix:
@@ -108,7 +108,7 @@ jobs:
         working-directory: precompiled
         shell: bash
 
-  cruby-native-package:
+  native-package:
     needs: ["rcd_image_version"]
     strategy:
       fail-fast: false
@@ -142,8 +142,8 @@ jobs:
           path: precompiled/gems
           retention-days: 1
 
-  cruby-linux-install:
-    needs: ["cruby-native-package", "ruby_versions"]
+  linux-install:
+    needs: ["native-package", "ruby_versions"]
     strategy:
       fail-fast: false
       matrix:
@@ -187,8 +187,8 @@ jobs:
               ./bin/test-gem-install gems
             "
 
-  cruby-darwin-install:
-    needs: ["cruby-native-package", "ruby_versions"]
+  darwin-install:
+    needs: ["native-package", "ruby_versions"]
     strategy:
       fail-fast: false
       matrix:
@@ -212,8 +212,8 @@ jobs:
       - run: ./bin/test-gem-install gems
         working-directory: precompiled
 
-  cruby-x64-mingw-ucrt-install:
-    needs: ["cruby-native-package", "ruby_versions"]
+  windows-install:
+    needs: ["native-package", "ruby_versions"]
     strategy:
       fail-fast: false
       matrix:
