@@ -1,5 +1,12 @@
 # Changelog
 
+## v0.6.0 / 2024-12-14
+
+### `precompiled`
+
+The `precompiled` gem has added Ruby 3.4 and dropped Ruby 3.0 from the precompiled native gems.
+
+
 ## v0.5.1 / 2024-01-28
 
 ### `precompiled`
