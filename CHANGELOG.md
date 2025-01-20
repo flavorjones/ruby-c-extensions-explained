@@ -1,5 +1,12 @@
 # Changelog
 
+## next / unreleased
+
+### `precompiled`
+
+The `precompiled` gem has been upgraded to rake-compiler-dock v1.9.1.
+
+
 ## v0.6.0 / 2024-12-14
 
 ### `precompiled`
