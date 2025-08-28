@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require_relative "isolated/version"
-require_relative "isolated/isolated"
+require "rcee/isolated/isolated"
 
 module RCEE
   module Isolated
