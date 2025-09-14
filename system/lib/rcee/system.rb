@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require_relative "system/version"
-require_relative "system/system"
+require "rcee/system/system"
 
 module RCEE
   module System

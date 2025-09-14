@@ -58,8 +58,13 @@ gcc -shared -L/path/to/ruby/lib -lruby -lc -lm isolated.o -o isolated.so
 That final shared library, `isolated.so`, is loaded like any other Ruby file, via `require` in `lib/rcee/isolated.rb`:
 
 ``` ruby
-require_relative "isolated/isolated"
+require "rcee/isolated/isolated"
 ```
+
+Even though RubyGems currently installs shared libraries relatively to Ruby
+files in lib/, it may stop doing so in the future, so it's safer to not load
+shared libraries from Ruby code using `require_relative`, but rather rely on the
+`$LOAD_PATH` and use `require`.
 
 ## Testing
 
