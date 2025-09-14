@@ -5,7 +5,7 @@ require_relative "precompiled/version"
 begin
   # load the precompiled extension file
   ruby_version = /(\d+\.\d+)/.match(::RUBY_VERSION)
-  require_relative "precompiled/#{ruby_version}/precompiled"
+  require "rcee/precompiled/#{ruby_version}/precompiled"
 rescue LoadError
   # fall back to the extension compiled upon installation.
   # use "require" instead of "require_relative" because non-native gems will place C extension files
