@@ -1,6 +1,11 @@
 # Changelog
 
-## next / unreleased
+## v0.7.0 / 2025-09-14
+
+### General changes
+
+Gems now use the preferred idiom for requiring shared objects, which is to rely on `require` and `$LOAD_PATH`, rather than use `require_relative`. #44 @deivid-rodriguez @flavorjones
+
 
 ### `precompiled`
 

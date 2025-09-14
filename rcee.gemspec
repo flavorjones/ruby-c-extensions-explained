@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 Gem::Specification.new do |spec|
-  rcee_version = "0.6.0"
+  rcee_version = "0.7.0"
 
   spec.name          = "rcee"
   spec.version       = rcee_version
