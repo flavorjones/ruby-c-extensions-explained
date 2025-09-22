@@ -86,7 +86,7 @@ See [.github/workflows/system.yml](../.github/workflows/system.yml)
 Key things to note:
 
 - matrix across all supported Rubies and platforms
-- use the github action `MSP-Greg/setup-ruby-pkgs@v1` to install system libraries on each platform
+- use the github action `ruby/setup-ruby-pkgs@v1` to install system libraries on each platform
 
 
 ## What Can Go Wrong

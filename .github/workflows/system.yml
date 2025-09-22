@@ -28,7 +28,7 @@ jobs:
     runs-on: ${{matrix.runs-on}}
     steps:
       - uses: actions/checkout@v4
-      - uses: MSP-Greg/setup-ruby-pkgs@v1
+      - uses: ruby/setup-ruby-pkgs@v1
         with:
           working-directory: system
           ruby-version: ${{matrix.ruby}}
