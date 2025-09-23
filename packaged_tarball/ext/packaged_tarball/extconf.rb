@@ -22,8 +22,8 @@ module RCEE
           end
 
           # use the packaged libyaml
-          recipe.activate
           pkg_config(File.join(recipe.path, "lib", "pkgconfig", "yaml-0.1.pc"))
+          recipe.activate
 
           # assert that we can build against the packaged libyaml
           unless have_library("yaml", "yaml_get_version", "yaml.h")
