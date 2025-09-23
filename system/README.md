@@ -45,10 +45,13 @@ That's pretty simple, but is enough to demonstrate the integration with `libyaml
 The `extconf.rb` is still simple (and similar to `isolated/ext/isolated/extconf.rb` but contains this additional block:
 
 ``` ruby
+dir_config('libyaml')
 unless find_header("yaml.h") && find_library("yaml", "yaml_get_version")
   abort("\nERROR: *** could not find libyaml development environment ***\n\n")
 end
 ```
+
+`dir_config` is optional and mostly for users on MacOS as most ruby installers build Ruby with the `--with-libyaml-dir=/opt/homebrew/opt/libyaml` flag. The `dir_config` allows for this flag to be taken in consideration and help Ruby determine where to search for the yaml library.
 
 `find_header` and `find_library` are `MakeMakefile` helper methods which will search your system's standard directories looking for files. If it finds them, it makes sure the compile step will be able to find `yaml.h`, and the link step will be able to find the `libyaml` library file.
 
