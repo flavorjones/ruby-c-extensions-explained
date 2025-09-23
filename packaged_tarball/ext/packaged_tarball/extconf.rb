@@ -22,8 +22,8 @@ module RCEE
           end
 
           # use the packaged libyaml
-          recipe.activate
           pkg_config(File.join(recipe.path, "lib", "pkgconfig", "yaml-0.1.pc"))
+          recipe.activate
 
           # assert that we can build against the packaged libyaml
           unless have_library("yaml", "yaml_get_version", "yaml.h")
@@ -42,6 +42,7 @@ module RCEE
               sha256: "c642ae9b75fee120b2d96c712538bd2cf283228d2337df2cf2988e3c02678ef4"
             }]
             recipe.target = File.join(PACKAGE_ROOT_DIR, "ports")
+            recipe.host.gsub!(/^arm64-apple-darwin/, "aarch64-apple-darwin")
           end
         end
       end
