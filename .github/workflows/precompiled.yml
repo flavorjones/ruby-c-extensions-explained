@@ -165,19 +165,20 @@ jobs:
           - "x86_64-linux-musl"
         ruby: ${{ fromJSON(needs.ruby_versions.outputs.image_tag) }}
         include:
+          - { runon: "ubuntu-latest", platform: x86_64-linux-gnu }
           # declare docker image for each platform
-          - { platform: aarch64-linux-musl, docker_tag: "-alpine", bootstrap: "apk add bash &&" }
-          - { platform: arm-linux-musl, docker_tag: "-alpine", bootstrap: "apk add bash &&" }
-          - { platform: x86-linux-musl, docker_tag: "-alpine", bootstrap: "apk add bash &&" }
-          - { platform: x86_64-linux-musl, docker_tag: "-alpine", bootstrap: "apk add bash &&" }
+          - { runon: "ubuntu-latest", platform: aarch64-linux-musl, docker_tag: "-alpine", bootstrap: "apk add bash &&" }
+          - { runon: "ubuntu-latest", platform: arm-linux-musl,     docker_tag: "-alpine", bootstrap: "apk add bash &&" }
+          - { runon: "ubuntu-latest", platform: x86-linux-musl,     docker_tag: "-alpine", bootstrap: "apk add bash &&" }
+          - { runon: "ubuntu-latest", platform: x86_64-linux-musl,  docker_tag: "-alpine", bootstrap: "apk add bash &&" }
           # declare docker platform for each platform
-          - { platform: aarch64-linux-gnu, docker_platform: "--platform=linux/arm64" }
-          - { platform: aarch64-linux-musl, docker_platform: "--platform=linux/arm64" }
-          - { platform: arm-linux-gnu, docker_platform: "--platform=linux/arm/v7" }
-          - { platform: arm-linux-musl, docker_platform: "--platform=linux/arm/v7" }
-          - { platform: x86-linux-gnu, docker_platform: "--platform=linux/386" }
-          - { platform: x86-linux-musl, docker_platform: "--platform=linux/386" }
-    runs-on: ubuntu-latest
+          - { runon: "ubuntu-24.04-arm", platform: aarch64-linux-gnu,  docker_platform: "--platform=linux/arm64" }
+          - { runon: "ubuntu-24.04-arm", platform: aarch64-linux-musl, docker_platform: "--platform=linux/arm64" }
+          - { runon: "ubuntu-24.04-arm", platform: arm-linux-gnu,      docker_platform: "--platform=linux/arm/v7" }
+          - { runon: "ubuntu-24.04-arm", platform: arm-linux-musl,     docker_platform: "--platform=linux/arm/v7" }
+          - { runon: "ubuntu-latest",    platform: x86-linux-gnu,      docker_platform: "--platform=linux/386" }
+          - { runon: "ubuntu-latest",    platform: x86-linux-musl,     docker_platform: "--platform=linux/386" }
+    runs-on: ${{ matrix.runon }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/download-artifact@v4
@@ -185,7 +186,6 @@ jobs:
           name: cruby-${{ matrix.platform }}-gem
           path: precompiled/gems
       - run: |
-          docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
           docker run --rm -v $PWD/precompiled:/precompiled -w /precompiled \
             ${{ matrix.docker_platform }} ruby:${{ matrix.ruby }}${{ matrix.docker_tag }} \
             sh -c "
