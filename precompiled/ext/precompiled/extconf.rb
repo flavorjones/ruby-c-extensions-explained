@@ -39,7 +39,10 @@ module RCEE
 
           # use the packaged libyaml
           recipe.activate
-          pkg_config(File.join(recipe.path, "lib", "pkgconfig", "yaml-0.1.pc"))
+
+          # explicitly add include/lib paths (pkg_config may not extract them correctly on all platforms)
+          $INCFLAGS << " -I#{File.join(recipe.path, "include")}"
+          $LIBPATH << File.join(recipe.path, "lib")
 
           # assert that we can build against the packaged libyaml
           unless have_library("yaml", "yaml_get_version", "yaml.h")
