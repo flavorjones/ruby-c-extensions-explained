@@ -52,6 +52,12 @@ jobs:
         ruby: ${{ fromJSON(needs.ruby_versions.outputs.setup_ruby) }}
     runs-on: ${{matrix.runs-on}}
     steps:
+      # git crlf needed to apply patches cleanly on windows runners
+      - name: configure git crlf
+        if: matrix.runs-on == 'windows-latest'
+        run: |
+          git config --system core.autocrlf false
+          git config --system core.eol lf
       - uses: actions/checkout@v4
       - uses: ruby/setup-ruby@v1
         with:

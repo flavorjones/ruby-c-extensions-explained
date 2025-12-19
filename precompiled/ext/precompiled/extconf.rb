@@ -62,6 +62,7 @@ module RCEE
               sha256: "c642ae9b75fee120b2d96c712538bd2cf283228d2337df2cf2988e3c02678ef4"
             }]
             recipe.target = File.join(PACKAGE_ROOT_DIR, "ports")
+            recipe.patch_files = Dir[File.join(PACKAGE_ROOT_DIR, "patches", "libyaml", "*.patch")].sort
           end
         end
       end
