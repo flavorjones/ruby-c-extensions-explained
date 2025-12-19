@@ -30,6 +30,7 @@ Gem::Specification.new do |spec|
     "ext/precompiled/precompiled.h",
     "lib/rcee/precompiled.rb",
     "lib/rcee/precompiled/version.rb",
+    "patches/libyaml/0001-Update-config.guess-and-config.sub-to-the-versions-p.patch",
     "ports/archives/yaml-0.2.5.tar.gz",
     "rcee_precompiled.gemspec",
   ]
