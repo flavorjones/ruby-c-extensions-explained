@@ -22,8 +22,8 @@ jobs:
   ruby_versions:
     outputs:
       # these are usually the same, but are different once we get to ruby release candidates
-      setup_ruby: "['3.2', '3.3', '3.4', 'head']"
-      image_tag:  "['3.2', '3.3', '3.4', '4.0.0-preview2']"
+      setup_ruby: "['3.2', '3.3', '3.4', '4.0']"
+      image_tag:  "['3.2', '3.3', '3.4', '4.0']"
     runs-on: ubuntu-latest
     steps:
       - run: echo "generating rubies ..."
@@ -34,7 +34,7 @@ jobs:
       rcd_image_version: ${{steps.rcd_image_version.outputs.rcd_image_version}}
     steps:
       - uses: actions/checkout@v4
-      - uses: ruby/setup-ruby@v1
+      - uses: ruby/setup-ruby@d3e3bd032ad2222a8ac878bbccf2aba78864e134
         with:
           working-directory: precompiled
           ruby-version: "3.4"
@@ -60,7 +60,7 @@ jobs:
           git config --system core.autocrlf false
           git config --system core.eol lf
       - uses: actions/checkout@v4
-      - uses: ruby/setup-ruby@v1
+      - uses: ruby/setup-ruby@d3e3bd032ad2222a8ac878bbccf2aba78864e134
         with:
           working-directory: precompiled
           ruby-version: ${{matrix.ruby}}
@@ -80,7 +80,7 @@ jobs:
         with:
           path: precompiled/ports/archives
           key: archives-ubuntu-${{hashFiles('precompiled/ext/precompiled/extconf.rb')}}
-      - uses: ruby/setup-ruby@v1
+      - uses: ruby/setup-ruby@d3e3bd032ad2222a8ac878bbccf2aba78864e134
         with:
           working-directory: precompiled
           ruby-version: "3.4"
@@ -103,7 +103,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
-      - uses: ruby/setup-ruby@v1
+      - uses: ruby/setup-ruby@d3e3bd032ad2222a8ac878bbccf2aba78864e134
         with:
           working-directory: precompiled
           ruby-version: "${{ matrix.ruby }}"
@@ -209,7 +209,7 @@ jobs:
     runs-on: ${{matrix.os}}
     steps:
       - uses: actions/checkout@v4
-      - uses: ruby/setup-ruby@v1
+      - uses: ruby/setup-ruby@d3e3bd032ad2222a8ac878bbccf2aba78864e134
         with:
           ruby-version: "${{matrix.ruby}}"
       - uses: actions/download-artifact@v4
@@ -228,7 +228,7 @@ jobs:
     runs-on: windows-2022
     steps:
       - uses: actions/checkout@v4
-      - uses: ruby/setup-ruby@v1
+      - uses: ruby/setup-ruby@d3e3bd032ad2222a8ac878bbccf2aba78864e134
         with:
           ruby-version: "${{matrix.ruby}}"
       - uses: actions/download-artifact@v4
