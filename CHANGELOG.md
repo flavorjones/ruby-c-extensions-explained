@@ -1,12 +1,12 @@
 # Changelog
 
-## next / unreleased
+## v0.8.0 / 2025-12-27
 
 ### `precompiled`
 
-- Update rake-compiler-dock to v1.11.0.rc1 (for Ruby 4 support)
 - Drop native support for Ruby 3.1
-- Add native support for Ruby 4.0 (preview3)
+- Add native support for Ruby 4.0
+- Update rake-compiler-dock to v1.11.0
 
 
 ## v0.7.0 / 2025-09-14
