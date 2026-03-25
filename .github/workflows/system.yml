@@ -23,8 +23,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        ruby: ["3.0", "3.1", "3.2", "3.3", "3.4", "head"]
-        runs-on: ["ubuntu-latest", "macos-13", "windows-latest"]
+        ruby: ["3.2", "3.3", "3.4", "4.0", "head"]
+        runs-on: ["ubuntu-latest", "macos-latest", "windows-latest"]
     runs-on: ${{matrix.runs-on}}
     steps:
       - uses: actions/checkout@v4
@@ -36,5 +36,7 @@ jobs:
           mingw: "libyaml" # windows
           apt-get: "libyaml-dev" # linux
           brew: "libyaml" # macos
+      - if: runner.os == 'macOS'
+        run: echo "CONFIGURE_ARGS=--with-libyaml-dir=$(brew --prefix libyaml)" >> $GITHUB_ENV
       - run: bundle exec rake compile test
         working-directory: system
