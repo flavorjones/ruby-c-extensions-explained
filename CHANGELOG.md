@@ -1,5 +1,12 @@
 # Changelog
 
+## v0.8.1 / 2026-04-16
+
+### `precompiled`
+
+- Update rake-compiler-dock to v1.12.0
+
+
 ## v0.8.0 / 2025-12-27
 
 ### `precompiled`
